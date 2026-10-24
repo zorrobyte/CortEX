@@ -35,11 +35,14 @@ struct PageCellView: View {
     @AppStorage(UDKey.animPlaybackMode) private var animPlaybackMode = "webp"
 
     var body: some View {
-        if isHorizontalMode {
-            horizontalBody
-        } else {
-            verticalBody
+        Group {
+            if isHorizontalMode {
+                horizontalBody
+            } else {
+                verticalBody
+            }
         }
+        .pinchToZoom { if let img = holder.image { onTap(img) } }
     }
 
     // MARK: - 横モード（holder.image直接参照、verticalBodyと同じ方式）

@@ -244,3 +244,10 @@ struct ZoomableImageOverlay: View {
         .transition(.opacity)
     }
 }
+
+extension View {
+    /// ピンチアウトでズーム表示 (ZoomableImageOverlay) を開く。ScrollView のスクロールとは同時認識。
+    func pinchToZoom(_ open: @escaping () -> Void) -> some View {
+        simultaneousGesture(MagnifyGesture().onChanged { if $0.magnification > 1.15 { open() } })
+    }
+}

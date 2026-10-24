@@ -99,7 +99,7 @@ struct NhentaiReaderView: View {
                 .toolbarColorScheme(.dark, for: .navigationBar)
                 // 黒帯を消し、ページをバーの下まで通す (没入)
                 .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
-                .toolbar(showControls ? .visible : .hidden, for: .navigationBar)
+                .toolbar(showControls && zoomImage == nil ? .visible : .hidden, for: .navigationBar)
                 #endif
                 .toolbar { readerToolbar }
         }
@@ -804,6 +804,7 @@ struct NhentaiReaderView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(maxWidth: .infinity)
+                    .pinchToZoom { zoomImage = image }
             } else {
                 VStack(spacing: 8) {
                     ProgressView()

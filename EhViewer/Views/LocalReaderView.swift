@@ -960,6 +960,7 @@ struct LocalReaderView: View {
                 .frame(maxWidth: .infinity, maxHeight: isHorizontal ? .infinity : nil, alignment: isHorizontal ? .center : .top)
                 .contentShape(Rectangle())
                 .onTapGesture { if verticalSizeClass == .regular { zoomImage = displayImage } }
+                .pinchToZoom { zoomImage = displayImage }
                 .onAppear {
                     if enhancedImages[index] == nil {
                         processPage(index)

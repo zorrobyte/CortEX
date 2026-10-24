@@ -600,6 +600,14 @@ class ReaderPageVC: UIViewController {
         let doubleTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         doubleTap.numberOfTapsRequired = 2
         view.addGestureRecognizer(doubleTap)
+        // ピンチアウトでもズーム表示を開く
+        view.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(handlePinch(_:))))
+    }
+
+    @objc private func handlePinch(_ gesture: UIPinchGestureRecognizer) {
+        guard gesture.state == .changed, gesture.scale > 1.15 else { return }
+        gesture.state = .ended
+        handleDoubleTap()
     }
 
     @objc private func handleDoubleTap() {

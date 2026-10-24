@@ -80,6 +80,18 @@ struct GalleryListView: View {
                 // 全幅セグメントが折り目をまたがないよう後ろ側へ寄せる
                 .foldDisplaced()
 
+                // nhentai の並び順もヘッダー側に置く (ページ TabView 内だと実機でソース切替と重なった)
+                if selectedSource == .nhentai && !nhVM.isSearchActive {
+                    Picker("並び順", selection: $nhVM.sortMode) {
+                        Text("新着").tag(NhSortMode.recent)
+                        Text("人気").tag(NhSortMode.popular)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding(.horizontal)
+                    .padding(.top, 6)
+                    .foldDisplaced()
+                }
+
                 #if targetEnvironment(macCatalyst)
                 // Mac Catalyst は従来の条件分岐 (マウス操作、Picker でソース切替)。
                 if selectedSource == .ehentai {
@@ -381,17 +393,6 @@ struct GalleryListView: View {
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 4)
-            }
-
-            if !nhVM.isSearchActive {
-                Picker("並び順", selection: $nhVM.sortMode) {
-                    Text("新着").tag(NhSortMode.recent)
-                    Text("人気").tag(NhSortMode.popular)
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
-                .padding(.vertical, 6)
-                .foldDisplaced()
             }
 
             TipView(NhentaiSearchTip(), arrowEdge: .top)
