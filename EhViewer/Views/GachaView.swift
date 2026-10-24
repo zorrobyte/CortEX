@@ -108,6 +108,8 @@ struct GachaView: View {
 
                         Spacer()
                     }
+                    // 折り目をまたぐ中央のボタン群を後ろ側へ寄せる (背景の黒は外側で全幅のまま)
+                    .foldDisplaced()
                     .opacity(uiOpacity)
 
                     // モザイクタイルレイヤー
@@ -130,6 +132,7 @@ struct GachaView: View {
                                 singleResultOverlay(gallery: gallery)
                             }
                         }
+                        .foldDisplaced()
                         .offset(x: resultDragOffset)
                         .opacity(resultDragOffset > 0 ? max(0, 1.0 - resultDragOffset / 400.0) : 1.0)
                         .overlay(alignment: .leading) {
@@ -261,11 +264,8 @@ struct GachaView: View {
 
     private var mosaicLayer: some View {
         let _ = displayLink.tick
-        #if os(iOS)
-        let bounds = DeviceCapability.windowBounds
-        #else
+        // 折りたたみでウィンドウが変わるため GeometryReader 由来の screenSize を使う
         let bounds = CGRect(origin: .zero, size: screenSize)
-        #endif
         return ZStack {
             ForEach(tiles) { tile in
                 Image(platformImage: tile.image)
@@ -528,14 +528,9 @@ struct GachaView: View {
 
     private func generateTiles(images: [PlatformImage]) {
         tiles.removeAll()
-        #if os(iOS)
-        let bounds = DeviceCapability.windowBounds
-        let w = bounds.width
-        let h = bounds.height
-        #else
+        // ウィンドウ寸法は GeometryReader 由来の screenSize (折りたたみで変わるため UIScreen/キャッシュ不可)
         let w = max(screenSize.width, 400)
         let h = max(screenSize.height, 700)
-        #endif
 
         // グリッドベースで画面全体を確実にカバー（重なりあり）
         let tileSize: CGFloat = 65

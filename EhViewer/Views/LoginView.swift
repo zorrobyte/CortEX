@@ -117,7 +117,7 @@ struct LoginView: View {
                     Button {
                         showHelp = true
                     } label: {
-                        Image(systemName: "info.circle")
+                        Label("ヘルプ", systemImage: "info.circle")
                     }
                 }
             }
@@ -246,6 +246,8 @@ struct LoginHelpView: View {
                     }
                 }
                 .padding()
+                .frame(maxWidth: 640)
+                .frame(maxWidth: .infinity)
             }
             .navigationTitle("ログイン方法")
             #if os(iOS)

@@ -114,6 +114,8 @@ struct NhentaiReaderView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 120)
+                .frame(maxWidth: .infinity)
+                .foldDisplaced()
                 .frame(maxHeight: .infinity, alignment: .bottom)
             }
 

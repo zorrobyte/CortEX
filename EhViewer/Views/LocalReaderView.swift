@@ -139,6 +139,8 @@ struct LocalReaderView: View {
                     .foregroundStyle(.white.opacity(0.7))
                 Spacer().frame(height: 130)
             }
+            .frame(maxWidth: .infinity)
+            .foldDisplaced()
         }
         .transition(.opacity)
     }
@@ -257,6 +259,8 @@ struct LocalReaderView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 120)
+                .frame(maxWidth: .infinity)
+                .foldDisplaced()
                 .frame(maxHeight: .infinity, alignment: .bottom)
             }
 
@@ -284,6 +288,8 @@ struct LocalReaderView: View {
                     downloadFilterPanel
                 }
                 .padding(.bottom, 100)
+                .frame(maxWidth: .infinity)
+                .foldDisplaced()
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
 

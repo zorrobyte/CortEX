@@ -27,18 +27,44 @@ struct NhentaiDetailView: View {
         GridItem(.flexible(), spacing: 4),
     ]
 
+    /// regular 幅 (iPad / iPhone Duo 内側) では 2 ペイン。折り目はウィンドウ中央で両ペインの境目になる。
+    @Environment(\.horizontalSizeClass) private var hSizeClass
+
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                headerSection
-                infoSection
-                if let tags = gallery.tags, !tags.isEmpty {
-                    tagsSection(tags)
+        Group {
+            if hSizeClass == .regular {
+                // 左: カバー/情報/操作ボタン、右: サムネ一覧。各ペインは独立スクロール。
+                HStack(alignment: .top, spacing: 0) {
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: 16) {
+                            headerSection
+                            infoSection
+                            if let tags = gallery.tags, !tags.isEmpty {
+                                tagsSection(tags)
+                            }
+                            actionButtons
+                        }
+                        .padding()
+                    }
+                    ScrollView {
+                        thumbnailGrid
+                            .padding()
+                    }
                 }
-                actionButtons
-                thumbnailGrid
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        headerSection
+                        infoSection
+                        if let tags = gallery.tags, !tags.isEmpty {
+                            tagsSection(tags)
+                        }
+                        actionButtons
+                        thumbnailGrid
+                    }
+                    .padding()
+                }
             }
-            .padding()
         }
         .navigationTitle(gallery.displayTitle)
         #if os(iOS)

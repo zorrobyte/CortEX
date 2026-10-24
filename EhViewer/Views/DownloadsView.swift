@@ -1030,6 +1030,7 @@ struct DownloadsView: View {
             .background(.ultraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 16))
             .shadow(radius: 12)
+            .foldDisplaced()   // 折り目をまたぐ「バックグラウンドで実行」を避ける
         }
         .transition(.opacity)
     }
@@ -1372,6 +1373,7 @@ struct DownloadsView: View {
             .padding(24)
             .background(Color.black.opacity(0.75))
             .cornerRadius(12)
+            .foldDisplaced()   // キャンセルボタンを折り目から避ける
         }
     }
 

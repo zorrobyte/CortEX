@@ -31,6 +31,8 @@ struct AnimationModeDialog: ViewModifier {
                         dialog
                             .background(.regularMaterial, in: RoundedRectangle(cornerRadius: 20))
                             .padding(.horizontal, 24)
+                            .frame(maxWidth: .infinity)
+                            .foldDisplaced()  // 折り目をまたがないよう後ろ側へ寄せる (iPhone Duo)
                     }
                     .transition(.opacity)
                     // 診断 2026-07-21: リーダー提示フラッピングの因果特定用 (第21条計測器)

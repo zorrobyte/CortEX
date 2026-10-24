@@ -328,6 +328,9 @@ struct NhentaiPreviewOverlay: View {
             .shadow(radius: 20)
             .frame(maxWidth: 600, maxHeight: 600)
             .padding()
+            // 折り目をまたぐ中央の小窓は後ろ側の領域へ寄せる
+            .frame(maxWidth: .infinity)
+            .foldDisplaced()
         }
         .task {
             await ensureDetailLoaded()

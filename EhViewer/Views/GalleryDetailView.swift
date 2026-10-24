@@ -53,7 +53,35 @@ struct GalleryDetailView: View {
         GridItem(.flexible(), spacing: 4),
     ]
 
+    /// regular 幅 (iPad / iPhone Duo 内側) では 2 ペイン。折り目はウィンドウ中央で両ペインの境目になる。
+    @Environment(\.horizontalSizeClass) private var hSizeClass
+
     var body: some View {
+        Group {
+        if let detail, hSizeClass == .regular {
+            // 左: カバー/情報/操作ボタン/コメント、右: サムネ一覧。各ペインは独立スクロール。
+            HStack(alignment: .top, spacing: 0) {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        headerSection(detail)
+                        infoSection(detail)
+                        if !detail.normalizedTags.isEmpty {
+                            tagsSection(detail)
+                        }
+                        readButton(startPage: 0)
+                        downloadButton(detail)
+                        if !detail.comments.isEmpty {
+                            commentsSection(detail.comments)
+                        }
+                    }
+                    .padding()
+                }
+                ScrollView {
+                    thumbnailGrid(detail)
+                        .padding()
+                }
+            }
+        } else {
         ScrollView {
             if let detail {
                 VStack(alignment: .leading, spacing: 16) {
@@ -213,6 +241,8 @@ struct GalleryDetailView: View {
                     Text(error)
                 }
             }
+        }
+        }
         }
         .navigationTitle(gallery.title)
         #if os(iOS)

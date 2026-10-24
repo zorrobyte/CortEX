@@ -43,19 +43,22 @@ struct ZoomablePageViewer: View {
                 .id(currentPage)
             } else {
                 // 未ロード: タップで閉じる/ページ送り可能にする
-                ProgressView().tint(.white)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .contentShape(Rectangle())
-                    .onTapGesture { location in
-                        let width = DeviceCapability.windowBounds.width
-                        if location.x < width * 0.33 {
-                            handleTap(.left)
-                        } else if location.x > width * 0.67 {
-                            handleTap(.right)
-                        } else {
-                            handleTap(.center)
+                // タップ帯はウィンドウでなくこのビュー自身の幅から決める (Split View / 折り畳み対応)
+                GeometryReader { geo in
+                    ProgressView().tint(.white)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .contentShape(Rectangle())
+                        .onTapGesture { location in
+                            let width = geo.size.width
+                            if location.x < width * 0.33 {
+                                handleTap(.left)
+                            } else if location.x > width * 0.67 {
+                                handleTap(.right)
+                            } else {
+                                handleTap(.center)
+                            }
                         }
-                    }
+                }
             }
 
             // ページ番号（等倍時のみ）

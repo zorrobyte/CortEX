@@ -37,6 +37,9 @@ struct BenchmarkView: View {
                         }
                     }
                     .padding()
+                    .frame(maxWidth: 600)   // regular 幅で全幅に伸ばさない
+                    .foldDisplaced()
+                    .frame(maxWidth: .infinity)
                 }
             }
             .navigationTitle("Benchmark")

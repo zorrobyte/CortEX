@@ -82,14 +82,14 @@ struct EhExHentaiLoginView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark")
+                        Label("閉じる", systemImage: "xmark")
                     }
                 }
                 ToolbarItem(placement: .navigation) {
                     Button {
                         webViewHolder.webView?.goBack()
                     } label: {
-                        Image(systemName: "chevron.backward")
+                        Label("戻る", systemImage: "chevron.backward")
                     }
                     .disabled(!canGoBack)
                 }
@@ -97,7 +97,7 @@ struct EhExHentaiLoginView: View {
                     Button {
                         webViewHolder.webView?.goForward()
                     } label: {
-                        Image(systemName: "chevron.forward")
+                        Label("進む", systemImage: "chevron.forward")
                     }
                     .disabled(!canGoForward)
                 }
@@ -109,7 +109,7 @@ struct EhExHentaiLoginView: View {
                             Label("e-hentai / exhentai cookie をクリア", systemImage: "trash")
                         }
                     } label: {
-                        Image(systemName: "ellipsis.circle")
+                        Label("メニュー", systemImage: "ellipsis.circle")
                     }
                 }
             }
@@ -201,6 +201,8 @@ struct EhExHentaiLoginView: View {
             .padding(.horizontal, 40)
         }
         .padding(32)
+        .frame(maxWidth: 560)
+        .frame(maxWidth: .infinity)
         .background(Color(.systemBackground))
     }
 

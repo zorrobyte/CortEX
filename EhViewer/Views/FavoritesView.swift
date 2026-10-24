@@ -33,6 +33,7 @@ struct FavoritesView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
                 .padding(.top, 6)
+                .foldDisplaced()
 
                 if favSource == .nhentai {
                     nhentaiFavoritesContent

@@ -76,6 +76,7 @@ struct WallpaperView: View {
                     }
                 }
                 .frame(width: pSize.width, height: pSize.height)
+                .ignoresSafeArea()
             } else {
                 ProgressView("読み込み中...")
                     .tint(.white).foregroundStyle(.white)
@@ -115,7 +116,6 @@ struct WallpaperView: View {
                 }
             }
         }
-        .ignoresSafeArea()
         #if os(iOS)
         .persistentSystemOverlays(.hidden)
         .statusBarHidden(true)

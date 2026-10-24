@@ -53,7 +53,7 @@ struct ContentView: View {
         .overlay {
             // safety OFF = 旧 EXTREME 相当で危険、赤ボーダー
             if !safetyMode.isEnabled {
-                RoundedRectangle(cornerRadius: Self.screenCornerRadius)
+                ConcentricRectangle()
                     .stroke(Color.red, lineWidth: 2.5)
                     .opacity(dangerPulse ? 1.0 : 0.5)
                     .ignoresSafeArea()
@@ -66,7 +66,7 @@ struct ContentView: View {
                     .onDisappear { dangerPulse = false }
             }
             if greenFlash {
-                RoundedRectangle(cornerRadius: Self.screenCornerRadius)
+                ConcentricRectangle()
                     .stroke(Color.green, lineWidth: 2.5)
                     .opacity(greenOpacity)
                     .ignoresSafeArea()
@@ -261,20 +261,6 @@ struct ContentView: View {
 
     @State private var showLockScreen = true
 
-    private static var screenCornerRadius: CGFloat {
-        #if os(iOS)
-        // UIScreen.main の _displayCornerRadius を安全に取得
-        let screen = UIScreen.main
-        if let radius = screen.value(forKey: "_displayCornerRadius") as? CGFloat, radius > 0 {
-            return radius
-        }
-        // フォールバック: iPhoneは55、iPadは20
-        return UIDevice.current.userInterfaceIdiom == .pad ? 20 : 55
-        #else
-        return 10
-        #endif
-    }
-
     private var isLocked: Bool {
         bioAuth.isLockActive && !bioAuth.isUnlocked
     }
@@ -331,6 +317,8 @@ struct ContentView: View {
                 .tabItem { Label("ウィッシュリスト", systemImage: "bookmark.fill") }
                 .tag(7)
         }
+        // 8 タブを More に畳まず、内側ディスプレイではサイドバーにも切替できるようにする (iPhone Duo)
+        .tabViewStyle(.sidebarAdaptable)
         .sheet(isPresented: $authVM.showingLogin) {
             LoginView(authVM: authVM)
         }
@@ -358,11 +346,16 @@ struct ContentView: View {
             // 暗めオーバーレイ
             Color.black.opacity(0.3).ignoresSafeArea()
 
-            if bioAuth.showPINInput {
-                pinInputScreen
-            } else {
-                faceIDScreen
+            // 操作 UI は折り目をまたがせない (背景は全幅のまま)
+            Group {
+                if bioAuth.showPINInput {
+                    pinInputScreen
+                } else {
+                    faceIDScreen
+                }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .foldDisplaced()
         }
         .onAppear {
             buildLockTiles()
@@ -375,27 +368,32 @@ struct ContentView: View {
         }
     }
 
+    /// タイルは基準幅 400 の座標系で作り、描画時に現在のウィンドウ幅へ拡縮する
+    /// (折りたたみ/Split View でウィンドウサイズが変わっても追従させるため)。
+    private static let lockTileBaseWidth: CGFloat = 400
+
     private var lockBackground: some View {
         let _ = lockDisplayLink.tick
-        #if os(iOS)
-        let screenH = DeviceCapability.windowBounds.height + 60
-        #else
-        let screenH: CGFloat = 900
-        #endif
-
-        return ZStack {
-            Color.black
-            ForEach(lockTiles) { tile in
-                let sy = tile.y + lockScrollOffset
-                if sy > -tile.height && sy < screenH + tile.height {
-                    Image(platformImage: tile.image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: tile.width, height: tile.height)
-                        .clipped()
-                        .position(x: tile.x + tile.width / 2, y: sy + tile.height / 2)
+        return GeometryReader { geo in
+            let s = geo.size.width / Self.lockTileBaseWidth
+            let baseH = geo.size.height / s
+            ZStack {
+                Color.black
+                ForEach(lockTiles) { tile in
+                    let sy = tile.y + lockScrollOffset
+                    if sy > -tile.height && sy < baseH + 60 + tile.height {
+                        Image(platformImage: tile.image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: tile.width, height: tile.height)
+                            .clipped()
+                            .position(x: tile.x + tile.width / 2, y: sy + tile.height / 2)
+                    }
                 }
             }
+            .frame(width: Self.lockTileBaseWidth, height: baseH)
+            .scaleEffect(s, anchor: .topLeading)
+            .frame(width: geo.size.width, height: geo.size.height, alignment: .topLeading)
         }
     }
 
@@ -409,12 +407,7 @@ struct ContentView: View {
         }
         guard !images.isEmpty else { return }
 
-        #if os(iOS)
-        let w = DeviceCapability.windowBounds.width
-        let h = DeviceCapability.windowBounds.height
-        #else
-        let w: CGFloat = 400; let h: CGFloat = 900
-        #endif
+        let w = Self.lockTileBaseWidth; let h: CGFloat = 900
 
         let cols = 4
         let tileW = w / CGFloat(cols)

@@ -93,6 +93,7 @@ struct LocalPreviewOverlay: View {
             .shadow(radius: 20)
             .frame(maxWidth: 600, maxHeight: 600)
             .padding()
+            .foldDisplaced()   // 折り目をまたぐ閉じるボタン/サムネを避ける
         }
     }
 }

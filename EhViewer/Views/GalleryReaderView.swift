@@ -145,6 +145,8 @@ struct GalleryReaderView: View {
                     }
                 }
                 .padding(.bottom, 100)
+                .frame(maxWidth: .infinity)
+                .foldDisplaced()
                 .transition(.move(edge: .bottom).combined(with: .opacity))
             }
 
@@ -209,6 +211,8 @@ struct GalleryReaderView: View {
                 }
                 .padding(.horizontal)
                 .padding(.bottom, 120)
+                .frame(maxWidth: .infinity)
+                .foldDisplaced()
             }
         }
         .task {

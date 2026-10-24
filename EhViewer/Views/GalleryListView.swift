@@ -77,6 +77,8 @@ struct GalleryListView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
                 .padding(.top, 6)
+                // 全幅セグメントが折り目をまたがないよう後ろ側へ寄せる
+                .foldDisplaced()
 
                 #if targetEnvironment(macCatalyst)
                 // Mac Catalyst は従来の条件分岐 (マウス操作、Picker でソース切替)。
@@ -237,6 +239,9 @@ struct GalleryListView: View {
             .shadow(color: .black.opacity(0.32), radius: 26, x: 0, y: 10)
             .padding(.horizontal, 18)
             .padding(.vertical, 50)
+            // 折り目をまたぐ中央配置の検索窓は後ろ側の領域の中央へ寄せる
+            .frame(maxWidth: .infinity)
+            .foldDisplaced()
             // fix (2026-05-16): 親 overlay 側の .contentShape + .onTapGesture を撤去。
             // iOS 18 では外側の tap 吸収が内側 Button (検索履歴行) のタップを奪うため
             // (v02a-f12 で実機確認済み)。背景タップでの dismiss は ZStack 背面の
@@ -383,6 +388,7 @@ struct GalleryListView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
                 .padding(.vertical, 6)
+                .foldDisplaced()
             }
 
             TipView(NhentaiSearchTip(), arrowEdge: .top)
@@ -941,6 +947,9 @@ struct GalleryPreviewOverlay: View {
             .shadow(radius: 20)
             .frame(maxWidth: 600, maxHeight: 600)
             .padding()
+            // 折り目をまたぐ中央の小窓は後ろ側の領域へ寄せる
+            .frame(maxWidth: .infinity)
+            .foldDisplaced()
         }
         .task {
             await loadInitial()
