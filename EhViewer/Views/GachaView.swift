@@ -165,7 +165,7 @@ struct GachaView: View {
                 if showFullscreen {
                     TipView(GachaSwipeTip(), arrowEdge: .top)
                         .padding(.horizontal)
-                        .padding(.top, 60)
+                        .padding(.top, 16)
                 }
             }
             .navigationTitle(showFullscreen ? "" : "ガチャ")
@@ -395,7 +395,8 @@ struct GachaView: View {
                 .padding(.bottom, 40)
             }
         }
-        .ignoresSafeArea()
+        // 縦は全面、横は安全領域を守る (トレーリングの縦バーに最右列が隠れないように)
+        .ignoresSafeArea(edges: .vertical)
     }
 
     // MARK: - Haptic

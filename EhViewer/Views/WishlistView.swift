@@ -57,7 +57,7 @@ struct WishlistView: View {
                         Button { manualTitle = ""; showManualAdd = true } label: {
                             Label("手動で追加", systemImage: "plus")
                         }
-                    } label: { Image(systemName: "plus") }
+                    } label: { Label("追加", systemImage: "plus") }
                 }
             }
             .sheet(isPresented: $showScanner) { BarcodeScannerSheet() }

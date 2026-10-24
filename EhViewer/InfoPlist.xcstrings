@@ -1,0 +1,24 @@
+{
+  "sourceLanguage" : "ja",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cort:EX" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "Cort:EX" } }
+      }
+    },
+    "NSCameraUsageDescription" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Used to scan ISBN/EAN barcodes and add books to your wishlist." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ISBN/EANバーコードを読み取って書籍をウィッシュリストに追加するために使用します。" } }
+      }
+    },
+    "NSFaceIDUsageDescription" : {
+      "localizations" : {
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Used to unlock the app." } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "アプリのロック解除に使用します" } }
+      }
+    }
+  },
+  "version" : "1.1"
+}

@@ -130,11 +130,11 @@ struct LogViewerView: View {
                     Button("Done") { dismiss() }
                 }
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Clear") { logManager.clear() }
+                    Button("Clear", role: .destructive) { logManager.clear() }
                 }
                 ToolbarItem(placement: .automatic) {
                     ShareLink(item: logManager.allText()) {
-                        Image(systemName: "square.and.arrow.up")
+                        Label("Share", systemImage: "square.and.arrow.up")
                     }
                 }
                 #if canImport(UIKit)
@@ -143,14 +143,14 @@ struct LogViewerView: View {
                         UIPasteboard.general.string = logManager.allText()
                         UINotificationFeedbackGenerator().notificationOccurred(.success)
                     } label: {
-                        Image(systemName: "doc.on.doc")
+                        Label("Copy", systemImage: "doc.on.doc")
                     }
                 }
                 ToolbarItem(placement: .automatic) {
                     Button {
                         saveLogToDocuments()
                     } label: {
-                        Image(systemName: "folder.badge.plus")
+                        Label("Save", systemImage: "folder.badge.plus")
                     }
                 }
                 #endif

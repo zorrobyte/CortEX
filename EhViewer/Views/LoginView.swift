@@ -109,7 +109,7 @@ struct LoginView: View {
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") {
+                    Button("キャンセル", role: .cancel) {
                         dismiss()
                     }
                 }

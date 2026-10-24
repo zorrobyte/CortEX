@@ -69,7 +69,7 @@ struct TagSearchResultView: View {
             ToolbarItem(placement: .primaryAction) {
                 Button { showFilter = true } label: {
                     // nh 側と統一 (逆輸入): 未選択=線アイコン / フィルタ有効時=塗り。
-                    Image(systemName: (minRating >= 2 || !selectedLanguages.isEmpty)
+                    Label("絞り込み", systemImage: (minRating >= 2 || !selectedLanguages.isEmpty)
                           ? "line.3.horizontal.decrease.circle.fill"
                           : "line.3.horizontal.decrease.circle")
                 }
@@ -124,7 +124,7 @@ struct TagSearchResultView: View {
                         Button("適用") { applyFilter(); showFilter = false }
                     }
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("閉じる") { showFilter = false }
+                        Button { showFilter = false } label: { Label("閉じる", systemImage: "xmark") }
                     }
                 }
             }

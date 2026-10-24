@@ -73,10 +73,11 @@ struct ContentView: View {
                     .allowsHitTesting(false)
             }
         }
-        .overlay(alignment: .topTrailing) {
+        .overlay(alignment: .topLeading) {
+            // 縦バーは trailing 側 (iPhone Duo) なので HUD は leading 側。top は safe area に任せる
             DebugVitalsHUD()
-                .padding(.top, 48)
-                .padding(.trailing, 8)
+                .padding(.top, 4)
+                .padding(.leading, 8)
                 .allowsHitTesting(false)
         }
         .onChange(of: safetyMode.isEnabled) { old, new in
@@ -157,9 +158,10 @@ struct ContentView: View {
                     }
             }
         }
-        .overlay {
-            if let toast = importToast {
-                VStack {
+        .overlay(alignment: .top) {
+            // toast / ECO / オフラインを 1 本の VStack に集約。top は safe area (ステータスバー等) 基準で固定値に頼らない
+            VStack(spacing: 6) {
+                if let toast = importToast {
                     Text(toast)
                         .font(.subheadline.bold())
                         .foregroundStyle(.white)
@@ -167,48 +169,41 @@ struct ContentView: View {
                         .padding(.vertical, 12)
                         .background(.green.opacity(0.9))
                         .clipShape(Capsule())
-                        .padding(.top, 60)
-                    Spacer()
+                        .transition(.move(edge: .top).combined(with: .opacity))
                 }
-                .transition(.move(edge: .top).combined(with: .opacity))
-                .animation(.easeOut(duration: 0.3), value: importToast)
-            }
-        }
-        .overlay(alignment: .top) {
-            if ecoMode.isEnabled {
-                HStack(spacing: 4) {
-                    Image(systemName: "leaf.fill")
-                        .font(.caption2)
-                    Text("ECO")
-                        .font(.caption2.bold())
+                if ecoMode.isEnabled {
+                    HStack(spacing: 4) {
+                        Image(systemName: "leaf.fill")
+                            .font(.caption2)
+                        Text("ECO")
+                            .font(.caption2.bold())
+                    }
+                    .foregroundStyle(.green)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 3)
+                    .background(.green.opacity(0.15))
+                    .clipShape(Capsule())
+                    .allowsHitTesting(false)
                 }
-                .foregroundStyle(.green)
-                .padding(.horizontal, 10)
-                .padding(.vertical, 3)
-                .background(.green.opacity(0.15))
-                .clipShape(Capsule())
-                .padding(.top, 55)
-                .allowsHitTesting(false)
-            }
-        }
-        .overlay(alignment: .top) {
-            if networkMonitor.showOfflineBanner {
-                HStack(spacing: 4) {
-                    Image(systemName: "wifi.slash")
-                        .font(.caption2)
-                    Text("オフライン")
-                        .font(.caption2.bold())
+                if networkMonitor.showOfflineBanner {
+                    HStack(spacing: 4) {
+                        Image(systemName: "wifi.slash")
+                            .font(.caption2)
+                        Text("オフライン")
+                            .font(.caption2.bold())
+                    }
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(.red.opacity(0.85))
+                    .clipShape(Capsule())
+                    .allowsHitTesting(false)
+                    .transition(.move(edge: .top).combined(with: .opacity))
                 }
-                .foregroundStyle(.white)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 4)
-                .background(.red.opacity(0.85))
-                .clipShape(Capsule())
-                .padding(.top, ecoMode.isEnabled ? 75 : 55)
-                .allowsHitTesting(false)
-                .transition(.move(edge: .top).combined(with: .opacity))
-                .animation(.easeOut(duration: 0.3), value: networkMonitor.showOfflineBanner)
             }
+            .padding(.top, 4)
+            .animation(.easeOut(duration: 0.3), value: importToast)
+            .animation(.easeOut(duration: 0.3), value: networkMonitor.showOfflineBanner)
         }
         .alert("モバイルデータ通信", isPresented: $networkMonitor.showCellularPrompt) {
             Button("続行") { networkMonitor.allowCellularDownload = true }
@@ -310,12 +305,12 @@ struct ContentView: View {
             CharacterManagementTab()
                 .tabItem { Label("お気に入りキャラクター管理", systemImage: "person.2.fill") }
                 .tag(5)
-            SettingsView(authVM: authVM)
-                .tabItem { Label("設定", systemImage: "gearshape.fill") }
-                .tag(6)
             WishlistView()
                 .tabItem { Label("ウィッシュリスト", systemImage: "bookmark.fill") }
                 .tag(7)
+            SettingsView(authVM: authVM)
+                .tabItem { Label("設定", systemImage: "gearshape.fill") }
+                .tag(6)
         }
         // 8 タブを More に畳まず、内側ディスプレイではサイドバーにも切替できるようにする (iPhone Duo)
         .tabViewStyle(.sidebarAdaptable)

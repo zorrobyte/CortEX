@@ -168,7 +168,7 @@ struct FavoritesView: View {
                     Button {
                         showWallpaper = true
                     } label: {
-                        Image(systemName: "rectangle.grid.3x2.fill")
+                        Label("壁紙", systemImage: "rectangle.grid.3x2.fill")
                     }
                 }
             }

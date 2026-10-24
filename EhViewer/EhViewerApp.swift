@@ -157,6 +157,9 @@ struct EhViewerApp: App {
     @Environment(\.scenePhase) private var scenePhase
 
     init() {
+        // 個人用フォーク: 端末の言語設定に関係なく UI・翻訳先とも英語に固定
+        UserDefaults.standard.set(["en"], forKey: "AppleLanguages")
+        UserDefaults.standard.set("en", forKey: UDKey.translationLang)
         // Phase 2C: BGProcessingTask handler 登録。
         // Apple 仕様で SceneDelegate / AppDelegate lifecycle 完了前に register 必須。
         // Info.plist の BGTaskSchedulerPermittedIdentifiers に同一 id 登録済み前提。
@@ -249,6 +252,7 @@ struct EhViewerApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            .environment(\.locale, Locale(identifier: "en"))
             .task {
                 // main 停滞の定量化 (250ms 超のみログ → スクロールヒッチ調査用)
                 MainStallMonitor.shared.start()

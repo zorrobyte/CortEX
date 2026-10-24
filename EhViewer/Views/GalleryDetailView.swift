@@ -60,7 +60,8 @@ struct GalleryDetailView: View {
         Group {
         if let detail, hSizeClass == .regular {
             // 左: カバー/情報/操作ボタン/コメント、右: サムネ一覧。各ペインは独立スクロール。
-            HStack(alignment: .top, spacing: 0) {
+            // ArrangementView(.split): 折り目・縦バー(trailing 84pt)に追従して分割 (HStack 均等分割の置換)。
+            ArrangementView {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
                         headerSection(detail)
@@ -76,11 +77,13 @@ struct GalleryDetailView: View {
                     }
                     .padding()
                 }
+            } secondary: {
                 ScrollView {
                     thumbnailGrid(detail)
                         .padding()
                 }
             }
+            .arrangementViewStyle(.split)
         } else {
         ScrollView {
             if let detail {
@@ -309,10 +312,11 @@ struct GalleryDetailView: View {
                     Button {
                         Task { await toggleFavorite(detail) }
                     } label: {
-                        Image(systemName: detail.isFavorited ? "heart.fill" : "heart")
-                            .foregroundStyle(detail.isFavorited ? .red : .primary)
+                        Label("お気に入り", systemImage: detail.isFavorited ? "heart.fill" : "heart")
                     }
+                    .tint(detail.isFavorited ? .red : nil)
                 }
+                .visibilityPriority(.high)
             }
         }
         // UI 刷新 Phase 2 (2026-07-03): 全 GroupBox をカード化 + グループ背景 (表層のみ)
@@ -1261,13 +1265,13 @@ struct InAppBrowserView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("閉じる") { dismiss() }
+                        Button { dismiss() } label: { Label("閉じる", systemImage: "xmark") }
                     }
                     ToolbarItem(placement: .primaryAction) {
                         Button {
                             UIApplication.shared.open(url)
                         } label: {
-                            Image(systemName: "safari")
+                            Label("Safariで開く", systemImage: "safari")
                         }
                     }
                 }

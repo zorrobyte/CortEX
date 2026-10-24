@@ -50,9 +50,7 @@ struct BenchmarkView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button { dismiss() } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .symbolRenderingMode(.hierarchical)
-                            .foregroundStyle(.white.opacity(0.6))
+                        Label("閉じる", systemImage: "xmark")
                     }
                 }
             }

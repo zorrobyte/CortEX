@@ -80,11 +80,11 @@ struct NhentaiLoginView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("閉じる") { dismiss() }
+                    Button("閉じる", role: .close) { dismiss() }
                 }
                 if loginDetected {
                     ToolbarItem(placement: .confirmationAction) {
-                        Button("完了") { dismiss() }
+                        Button("完了", role: .confirm) { dismiss() }
                             .bold()
                     }
                 }
@@ -148,7 +148,7 @@ struct NhentaiCDNVerifyView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("閉じる") { dismiss() }
+                    Button("閉じる", role: .close) { dismiss() }
                 }
             }
         }

@@ -64,7 +64,7 @@ struct HistoryView: View {
                         Button(role: .destructive) {
                             showClearConfirm = true
                         } label: {
-                            Image(systemName: "trash")
+                            Label("履歴を消去", systemImage: "trash")
                         }
                     }
                 }

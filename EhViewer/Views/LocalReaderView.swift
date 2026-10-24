@@ -224,10 +224,11 @@ struct LocalReaderView: View {
     var body: some View {
         NavigationStack {
             readerBody
-                .navigationTitle(meta.title)
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
+                // 黒帯を消し、ページをバーの下まで通す (没入)
+                .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
                 .toolbar(showControls && zoomImage == nil ? .visible : .hidden, for: .navigationBar)
                 #endif
                 .toolbar { readerToolbar }
@@ -261,6 +262,7 @@ struct LocalReaderView: View {
             if resolvedDirection != nil {
                 if effectiveDirection == 0 {
                     verticalReader
+                        .ignoresSafeArea()
                 } else {
                     localHorizontalReader
                 }

@@ -441,14 +441,14 @@ struct DownloadsView: View {
                     Button {
                         libraryListLayout = isLibraryGrid ? "list" : "grid"
                     } label: {
-                        Image(systemName: isLibraryGrid ? "list.bullet" : "square.grid.2x2")
+                        Label(isLibraryGrid ? "一覧表示" : "グリッド表示", systemImage: isLibraryGrid ? "list.bullet" : "square.grid.2x2")
                     }
                 }
                 ToolbarItem(placement: .automatic) {
                     Button {
                         showImportPicker = true
                     } label: {
-                        Image(systemName: "square.and.arrow.down")
+                        Label("インポート", systemImage: "square.and.arrow.down")
                     }
                 }
             }

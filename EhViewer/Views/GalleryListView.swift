@@ -131,20 +131,22 @@ struct GalleryListView: View {
                 TagSearchResultView(searchQuery: filter.query, host: currentHost, title: filter.displayTitle)
             }
             .toolbar {
-                ToolbarItem(placement: .automatic) {
-                    if selectedSource == .ehentai && !authVM.isLoggedIn {
+                // サイドバー縦バー用: 全項目 Label (タイトル+アイコン)。あふれは login → 表示切替 → 検索 の順に隠す。
+                if selectedSource == .ehentai && !authVM.isLoggedIn {
+                    ToolbarItem(placement: .automatic) {
                         Button {
                             authVM.showingLogin = true
                         } label: {
-                            Image(systemName: "person.crop.circle")
+                            Label("ログイン", systemImage: "person.crop.circle")
                         }
                     }
+                    .visibilityPriority(.low)
                 }
                 ToolbarItem(placement: .automatic) {
                     Button {
                         galleryListLayout = (galleryListLayout == "grid") ? "list" : "grid"
                     } label: {
-                        Image(systemName: galleryListLayout == "grid" ? "list.bullet" : "square.grid.2x2")
+                        Label("表示切替", systemImage: galleryListLayout == "grid" ? "list.bullet" : "square.grid.2x2")
                     }
                 }
                 #if !targetEnvironment(macCatalyst)
@@ -153,9 +155,10 @@ struct GalleryListView: View {
                     Button {
                         showAdvancedSearch = true
                     } label: {
-                        Image(systemName: "magnifyingglass")
+                        Label("検索", systemImage: "magnifyingglass")
                     }
                 }
+                .visibilityPriority(.high)
                 #endif
             }
             #if targetEnvironment(macCatalyst)

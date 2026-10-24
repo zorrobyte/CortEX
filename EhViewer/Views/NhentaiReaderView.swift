@@ -20,6 +20,11 @@ struct NhentaiReaderView: View {
     @State private var sliderJumpTarget: Int?
     @State private var images: [Int: PlatformImage] = [:]       // 表示用（フィルタ適用済み）
     @State private var rawImages: [Int: PlatformImage] = [:]   // フィルタ再適用用の元画像
+    /// 翻訳焼き込み済み画像 (翻訳 ON 時のみ表示で優先。images は触らない=フィルタ再適用で消えない)
+    @State private var translatedImages: [Int: PlatformImage] = [:]
+    @State private var translationSource = NhTranslationSource()
+    @AppStorage(UDKey.translationLang) private var translationLang = ["ja", "en", "zh", "ko"].first { $0 == Locale.current.language.languageCode?.identifier } ?? "en"
+    @AppStorage(UDKey.translationSourceLang) private var translationSourceLang = "auto"
     @State private var pageDataCache: [Int: Data] = [:]
     @State private var loadingPages: Set<Int> = []
     /// 大容量(標準画質)DL 進捗 (ページ単位)。田中要望 2026-06-09。
@@ -89,10 +94,11 @@ struct NhentaiReaderView: View {
     var body: some View {
         NavigationStack {
             readerBody
-                .navigationTitle(gallery.displayTitle)
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
+                // 黒帯を消し、ページをバーの下まで通す (没入)
+                .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
                 .toolbar(showControls ? .visible : .hidden, for: .navigationBar)
                 #endif
                 .toolbar { readerToolbar }
@@ -104,13 +110,17 @@ struct NhentaiReaderView: View {
         ToolbarItem(placement: .cancellationAction) {
             Button { handleClose() } label: { Label("閉じる", systemImage: "xmark") }
         }
-        ToolbarItemGroup(placement: .primaryAction) {
-            if NhentaiCookieManager.isLoggedIn() {
+        // 状態を示すお気に入りは溢れても最後まで残す
+        if NhentaiCookieManager.isLoggedIn() {
+            ToolbarItem(placement: .primaryAction) {
                 Button { toggleNhFavorite() } label: {
                     Label("お気に入り", systemImage: isFavorited ? "heart.fill" : "heart")
                 }
                 .tint(isFavorited ? .red : nil)
             }
+            .visibilityPriority(.high)
+        }
+        ToolbarItemGroup(placement: .primaryAction) {
             Button {
                 if translationMode {
                     // OFF時にキャッシュクリア（誤翻訳リセット）
@@ -161,9 +171,19 @@ struct NhentaiReaderView: View {
         ZStack {
             Color.black.ignoresSafeArea()
 
+            // 翻訳マネージャー（非表示、画像処理のみ）。gid は E-H と衝突しないよう負値
+            TranslationManagerView(
+                viewModel: translationSource,
+                gid: -gallery.id,
+                targetLang: translationLang,
+                sourceLang: translationSourceLang,
+                isActive: translationMode
+            )
+
             if resolvedDirection != nil {
                 if effectiveDirection == 0 {
                     verticalReader
+                        .ignoresSafeArea()
                 } else {
                     horizontalReader
                 }
@@ -372,11 +392,22 @@ struct NhentaiReaderView: View {
             // が State として残ると、リーダー閉じてもメモリ常駐 (田中報告 2026-04-25 二度目)。
             images.removeAll()
             rawImages.removeAll()
+            translatedImages.removeAll()
             pageDataCache.removeAll()
         }
         // 閲覧ページ蓄積で @State 辞書 (生Data+元画像+フィルタ後の3重) が無制限成長
         // しないよう、現在ページから離れたエントリを解放
-        .onChange(of: currentIndex) { _, newIndex in evictDistantPages(around: newIndex) }
+        .onChange(of: currentIndex) { _, newIndex in
+            evictDistantPages(around: newIndex)
+            translationSource.currentIndex = newIndex
+        }
+        .onChange(of: rawImages) { if translationMode { translationSource.sync(rawImages) } }
+        .onChange(of: translationMode) { if translationMode { translationSource.sync(rawImages) } }
+        .onAppear {
+            translationSource.totalPages = totalPages
+            translationSource.currentIndex = currentIndex
+            translationSource.onTranslated = { page, img in translatedImages[page] = img }
+        }
         .onChange(of: noFilterMode) { _, _ in reapplyFilters() }
         .onChange(of: imageEnhanceFilter) { _, _ in reapplyFilters() }
         .onChange(of: denoiseEnabled) { _, _ in reapplyFilters() }
@@ -710,7 +741,7 @@ struct NhentaiReaderView: View {
             currentPage: $horizontalPage,
             showControls: $showControls,
             readingOrder: readingOrder,
-            imageForPage: { index in images[index] },
+            imageForPage: { index in displayImage(index) },
             onPageAppear: { index in
                 currentIndex = index
                 loadPage(index)
@@ -760,10 +791,15 @@ struct NhentaiReaderView: View {
 
     // MARK: - ページセル
 
+    /// 翻訳 ON かつ焼き込み済みならそれを、でなければ通常画像
+    private func displayImage(_ index: Int) -> PlatformImage? {
+        (translationMode ? translatedImages[index] : nil) ?? images[index]
+    }
+
     @ViewBuilder
     private func pageCell(index: Int) -> some View {
         ZStack(alignment: .bottom) {
-            if let image = images[index] {
+            if let image = displayImage(index) {
                 Image(platformImage: image)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -1013,7 +1049,7 @@ struct NhentaiReaderView: View {
                 currentPage: page,
                 totalPages: totalPages,
                 readingOrder: readingOrder,
-                imageForPage: { images[$0] }
+                imageForPage: { displayImage($0) }
             )
         }
         return "\(page + 1) / \(totalPages)"
@@ -1075,6 +1111,37 @@ struct NhentaiReaderView: View {
             .padding(.bottom, 8)
             .foldDisplaced()
             .background(.ultraThinMaterial.opacity(0.8))
+        }
+    }
+}
+
+/// nhentai リーダー用の翻訳ページ源。holder は元画像の受け皿で、翻訳結果は
+/// onTranslated で View の @State へ流す (images は書き換えない)。
+final class NhTranslationSource: TranslationPageSource {
+    var totalPages = 0
+    var currentIndex = 0
+    var onTranslated: ((Int, PlatformImage?) -> Void)?
+    private var holders: [Int: PageImageHolder] = [:]
+    private var bag: [Int: AnyCancellable] = [:]
+
+    func holder(for index: Int) -> PageImageHolder {
+        if let h = holders[index] { return h }
+        let h = PageImageHolder()
+        holders[index] = h
+        bag[index] = h.$image.dropFirst().sink { [weak self, weak h] img in
+            guard let h else { return }
+            self?.onTranslated?(index, img != nil && img === h.translatedImage ? img : nil)
+        }
+        return h
+    }
+
+    /// rawImages (元画像) を holder へ反映。evict 済みページの元画像は手放す
+    /// (焼き込み済みは completedPages 管理のため holder 自体は残す)。
+    func sync(_ raws: [Int: PlatformImage]) {
+        for (k, v) in raws where holders[k]?.originalImage !== v { holder(for: k).setLoaded(v) }
+        for (k, h) in holders where raws[k] == nil && h.originalImage != nil {
+            h.originalImage = nil
+            h.image = nil
         }
     }
 }

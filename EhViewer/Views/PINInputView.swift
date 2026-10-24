@@ -194,7 +194,7 @@ struct PINSetupView: View {
             #endif
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("キャンセル") { dismiss() }
+                    Button("キャンセル", role: .cancel) { dismiss() }
                 }
             }
             .onAppear {

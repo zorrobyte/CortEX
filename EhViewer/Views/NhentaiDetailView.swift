@@ -34,7 +34,8 @@ struct NhentaiDetailView: View {
         Group {
             if hSizeClass == .regular {
                 // 左: カバー/情報/操作ボタン、右: サムネ一覧。各ペインは独立スクロール。
-                HStack(alignment: .top, spacing: 0) {
+                // ArrangementView(.split): 折り目・縦バーに追従して分割 (HStack 均等分割の置換)。
+                ArrangementView {
                     ScrollView {
                         VStack(alignment: .leading, spacing: 16) {
                             headerSection
@@ -46,11 +47,13 @@ struct NhentaiDetailView: View {
                         }
                         .padding()
                     }
+                } secondary: {
                     ScrollView {
                         thumbnailGrid
                             .padding()
                     }
                 }
+                .arrangementViewStyle(.split)
             } else {
                 ScrollView {
                     VStack(alignment: .leading, spacing: 16) {
@@ -768,7 +771,7 @@ struct NhTagSearchResultView: View {
                 Button {
                     showFilter = true
                 } label: {
-                    Image(systemName: selectedLanguages.isEmpty
+                    Label("絞り込み", systemImage: selectedLanguages.isEmpty
                           ? "line.3.horizontal.decrease.circle"
                           : "line.3.horizontal.decrease.circle.fill")
                 }
@@ -818,7 +821,7 @@ struct NhTagSearchResultView: View {
                         }
                     }
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("閉じる") { showFilter = false }
+                        Button { showFilter = false } label: { Label("閉じる", systemImage: "xmark") }
                     }
                 }
             }

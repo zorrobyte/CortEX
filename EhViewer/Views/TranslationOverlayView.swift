@@ -1,10 +1,19 @@
 import SwiftUI
 
+/// 翻訳マネージャーが読むページ源。E-H は ReaderViewModel、nhentai は NhTranslationSource。
+@MainActor
+protocol TranslationPageSource: AnyObject {
+    var totalPages: Int { get }
+    var currentIndex: Int { get }
+    func holder(for index: Int) -> PageImageHolder
+}
+extension ReaderViewModel: TranslationPageSource {}
+
 #if targetEnvironment(macCatalyst)
 // Mac Catalyst は Translation framework 非対応（Catalyst 26.0+ で利用可、現状未サポート）
 // スタブで consumer (GalleryReaderView) の参照を通す
 struct TranslationManagerView: View {
-    let viewModel: ReaderViewModel
+    let viewModel: any TranslationPageSource
     let gid: Int
     let targetLang: String
     let sourceLang: String
@@ -17,7 +26,7 @@ import Translation
 /// リーダー全体で1つだけ配置する翻訳マネージャーView
 /// .translationTask で1回だけセッションを取得し、保持して全ページに使い回す
 struct TranslationManagerView: View {
-    let viewModel: ReaderViewModel
+    let viewModel: any TranslationPageSource
     let gid: Int
     let targetLang: String
     let sourceLang: String // "auto" or "en", "zh-Hans", "zh-Hant", "ja", "ko"

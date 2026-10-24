@@ -28,7 +28,7 @@ struct GalleryReaderView: View {
     @AppStorage(UDKey.noFilterMode) private var noFilterMode = false
     @AppStorage(UDKey.boomerangMode) private var boomerangMode = true
     @AppStorage(UDKey.translationMode) private var translationMode = false
-    @AppStorage(UDKey.translationLang) private var translationLang = "ja"
+    @AppStorage(UDKey.translationLang) private var translationLang = ["ja", "en", "zh", "ko"].first { $0 == Locale.current.language.languageCode?.identifier } ?? "en"
     @AppStorage(UDKey.translationSourceLang) private var translationSourceLang = "auto"
     @AppStorage(UDKey.readerDirection) private var userReaderDirection = 0 // 0:縦, 1:横
     @AppStorage(UDKey.readingOrder) private var readingOrder = 1 // 0:左綴じ, 1:右綴じ
@@ -94,10 +94,11 @@ struct GalleryReaderView: View {
     var body: some View {
         NavigationStack {
             readerBody
-                .navigationTitle(gallery.title)
                 #if os(iOS)
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbarColorScheme(.dark, for: .navigationBar)
+                // 黒帯を消し、ページをバーの下まで通す (没入)
+                .toolbarBackgroundVisibility(.hidden, for: .navigationBar)
                 .toolbar(showControls && zoomImage == nil ? .visible : .hidden, for: .navigationBar)
                 #endif
                 .toolbar { readerToolbar }
@@ -109,7 +110,8 @@ struct GalleryReaderView: View {
         ToolbarItem(placement: .cancellationAction) {
             Button { handleDismiss() } label: { Label("閉じる", systemImage: "xmark") }
         }
-        ToolbarItemGroup(placement: .primaryAction) {
+        // 状態を示すお気に入りは溢れても最後まで残す
+        ToolbarItem(placement: .primaryAction) {
             // 挙動は GalleryDetailView.toggleFavorite と同じ
             Button {
                 Task { await toggleFavorite() }
@@ -117,6 +119,9 @@ struct GalleryReaderView: View {
                 Label("お気に入り", systemImage: isFavorited ? "heart.fill" : "heart")
             }
             .tint(isFavorited ? .red : nil)
+        }
+        .visibilityPriority(.high)
+        ToolbarItemGroup(placement: .primaryAction) {
             Button {
                 if translationMode {
                     // OFF時にキャッシュクリア（誤翻訳リセット）
@@ -143,6 +148,7 @@ struct GalleryReaderView: View {
             if resolvedDirection != nil {
                 if effectiveDirection == 0 {
                     verticalReader
+                        .ignoresSafeArea()
                 } else {
                     horizontalReader
                 }

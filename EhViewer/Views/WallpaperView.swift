@@ -34,16 +34,8 @@ struct WallpaperView: View {
     @State private var cachedTileH: CGFloat = 0
     @State private var cachedTotalH: CGFloat = 0
 
-    private var portraitSize: CGSize {
-        #if os(iOS)
-        let bounds = DeviceCapability.windowBounds
-        let w = min(bounds.width, bounds.height)
-        let h = max(bounds.width, bounds.height)
-        return CGSize(width: w, height: h)
-        #else
-        return CGSize(width: 400, height: 900)
-        #endif
-    }
+    /// GeometryReader 由来のウィンドウ寸法 (折りたたみ/回転で変わる)
+    @State private var viewSize: CGSize = .zero
 
     struct WallTile: Identifiable {
         let id = UUID()
@@ -56,7 +48,7 @@ struct WallpaperView: View {
 
     var body: some View {
         let _ = displayLink.tick
-        let pSize = portraitSize
+        let pSize = viewSize
 
         ZStack {
             Color.black.ignoresSafeArea()
@@ -116,6 +108,16 @@ struct WallpaperView: View {
                 }
             }
         }
+        .onGeometryChange(for: CGSize.self, of: { $0.size }) { newSize in
+            guard newSize != viewSize else { return }
+            viewSize = newSize
+            guard !readyImages.isEmpty else { return }
+            if isReady {
+                rebuildTiles(images: readyImages, width: newSize.width, height: newSize.height)
+            } else {
+                buildAndStart(images: readyImages, width: newSize.width, height: newSize.height)
+            }
+        }
         #if os(iOS)
         .persistentSystemOverlays(.hidden)
         .statusBarHidden(true)
@@ -169,8 +171,9 @@ struct WallpaperView: View {
         readyIndex = 0
         lastBatchTailURLs = tailURLs
 
-        let pSize = portraitSize
-        buildAndStart(images: loaded, width: pSize.width, height: pSize.height)
+        // サイズ未確定なら onGeometryChange 側で初回構築する
+        guard viewSize.width > 0 else { return }
+        buildAndStart(images: loaded, width: viewSize.width, height: viewSize.height)
     }
 
     private func buildAndStart(images: [PlatformImage], width: CGFloat, height: CGFloat) {

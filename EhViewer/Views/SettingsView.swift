@@ -24,7 +24,7 @@ struct SettingsView: View {
     /// アニメ per-frame に NE 人物セグメンテーションを適用。人物領域のみ CISharpenLuminance + CIVibrance
     /// でブースト。静画の「通常モード NE シャープ化」を動画にも適用する本命機能。default=true。
     @AppStorage(UDKey.translationMode) private var translationMode = false
-    @AppStorage(UDKey.translationLang) private var translationLang = "ja"
+    @AppStorage(UDKey.translationLang) private var translationLang = ["ja", "en", "zh", "ko"].first { $0 == Locale.current.language.languageCode?.identifier } ?? "en"
     @AppStorage(UDKey.translationSourceLang) private var translationSourceLang = "auto"
     @AppStorage(UDKey.autoSaveOnRead) private var autoSaveOnRead = false
     @State private var favBackupURL: URL?
@@ -1242,13 +1242,13 @@ struct CharacterCensusView: View {
                         if !ages.isEmpty {
                             if let url = ageExportURL {
                                 ShareLink(item: url) {
-                                    Image(systemName: "square.and.arrow.up")
+                                    Label("エクスポート", systemImage: "square.and.arrow.up")
                                 }
                             } else {
                                 Button {
                                     ageExportURL = exportAges()
                                 } label: {
-                                    Image(systemName: "square.and.arrow.up")
+                                    Label("エクスポート", systemImage: "square.and.arrow.up")
                                 }
                             }
                         }
@@ -1256,7 +1256,7 @@ struct CharacterCensusView: View {
                         Button {
                             showAgeImport = true
                         } label: {
-                            Image(systemName: "square.and.arrow.down")
+                            Label("インポート", systemImage: "square.and.arrow.down")
                         }
                         // リセット
                         if !ages.isEmpty {
