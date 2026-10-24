@@ -22172,6 +22172,1406 @@
           }
         }
       }
+    },
+    "%@ (日本語)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ (Japanese)"
+          }
+        }
+      }
+    },
+    "%@ が公開されています。\n現在: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is available.\nCurrent: %@"
+          }
+        }
+      }
+    },
+    "%@ の保存が完了しました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ has finished saving"
+          }
+        }
+      }
+    },
+    "%@ を認証中...": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Authenticating %@..."
+          }
+        }
+      }
+    },
+    "%lld 件見つかりました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld found"
+          }
+        }
+      }
+    },
+    "%lldページ目から再開": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Resume from page %lld"
+          }
+        }
+      }
+    },
+    "%lld分前": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld min ago"
+          }
+        }
+      }
+    },
+    "%lld日前": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld days ago"
+          }
+        }
+      }
+    },
+    "%lld時間前": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld hr ago"
+          }
+        }
+      }
+    },
+    "(NAS 未接続)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(NAS not connected)"
+          }
+        }
+      }
+    },
+    "(NAS 解決中...)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(Resolving NAS...)"
+          }
+        }
+      }
+    },
+    "(bookmark 解決失敗)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "(Bookmark could not be resolved)"
+          }
+        }
+      }
+    },
+    ">> HIDDEN SUBSYSTEM UNLOCKED\n>> AGE VERIFICATION: ONLINE\n>> ACCESS LEVEL: ELEVATED\n\n// キャラクター管理に年齢機能が追加されました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ">> HIDDEN SUBSYSTEM UNLOCKED\n>> AGE VERIFICATION: ONLINE\n>> ACCESS LEVEL: ELEVATED\n\n// Character management now has an age feature"
+          }
+        }
+      }
+    },
+    "CDNドメインを認証中...": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Authenticating CDN domain..."
+          }
+        }
+      }
+    },
+    "DL 保存先 変更": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change Download Location"
+          }
+        }
+      }
+    },
+    "E-Hentai: ログイン不要。一部タグの作品が除外される": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "E-Hentai: No login needed. Some tagged works are hidden"
+          }
+        }
+      }
+    },
+    "EXhentai: ログイン必須。全コンテンツ閲覧可能": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "EXhentai: Login required. All content is available"
+          }
+        }
+      }
+    },
+    "ISBN を手入力 (978…)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter ISBN (978…)"
+          }
+        }
+      }
+    },
+    "NAS に転送中…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferring to NAS…"
+          }
+        }
+      }
+    },
+    "SHIKIGAMI 打電先 IP:port": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "SHIKIGAMI destination IP:port"
+          }
+        }
+      }
+    },
+    "exhentai.org に再アクセス中 (igneous 発行)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Reconnecting to exhentai.org (issuing igneous)"
+          }
+        }
+      }
+    },
+    "igneous は EXhentai 専用です。E-Hentaiのみ使う場合は不要": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "igneous is for EXhentai only. Not needed if you only use E-Hentai"
+          }
+        }
+      }
+    },
+    "igneous 再取得中... (%lld/%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fetching igneous again... (%lld/%lld)"
+          }
+        }
+      }
+    },
+    "★%lld 以上のみ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "★%lld and up only"
+          }
+        }
+      }
+    },
+    "「%@」をコピー": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Copy \"%@\""
+          }
+        }
+      }
+    },
+    "このバージョンをスキップ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip This Version"
+          }
+        }
+      }
+    },
+    "この端末では動画の再生が重くなります": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Videos may play slowly on this device"
+          }
+        }
+      }
+    },
+    "それ以外のR18コンテンツはどちらでも閲覧可能": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "All other R18 content is available on both"
+          }
+        }
+      }
+    },
+    "たった今": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Just now"
+          }
+        }
+      }
+    },
+    "もう一度スキャン": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan Again"
+          }
+        }
+      }
+    },
+    "もう一度取得": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Fetch Again"
+          }
+        }
+      }
+    },
+    "アクセスが制限されています": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Access is restricted"
+          }
+        }
+      }
+    },
+    "アクセスが制限されています（残り %@）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Access is restricted (%@ left)"
+          }
+        }
+      }
+    },
+    "アップデート": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Update"
+          }
+        }
+      }
+    },
+    "インポート中...": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Importing..."
+          }
+        }
+      }
+    },
+    "インポート失敗": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Import failed"
+          }
+        }
+      }
+    },
+    "インポート完了": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Import complete"
+          }
+        }
+      }
+    },
+    "ウィッシュリスト": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wishlist"
+          }
+        }
+      }
+    },
+    "ウィッシュリストに追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add to Wishlist"
+          }
+        }
+      }
+    },
+    "ウィッシュリストは空です": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your wishlist is empty"
+          }
+        }
+      }
+    },
+    "ウクライナ語": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ukrainian"
+          }
+        }
+      }
+    },
+    "カメラへのアクセスが許可されていません": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Camera access is not allowed"
+          }
+        }
+      }
+    },
+    "カメラを準備中…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starting camera…"
+          }
+        }
+      }
+    },
+    "ギャラリーが削除されています": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This gallery has been removed"
+          }
+        }
+      }
+    },
+    "ギャラリーにファイルがありません": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "The gallery has no files"
+          }
+        }
+      }
+    },
+    "ギャラリーフォルダが見つかりません (gid=%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gallery folder not found (gid=%lld)"
+          }
+        }
+      }
+    },
+    "ギャラリーフォルダの列挙に失敗": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not list the gallery folder"
+          }
+        }
+      }
+    },
+    "クリア完了 (%lld件)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cleared (%lld)"
+          }
+        }
+      }
+    },
+    "サークル": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Circle"
+          }
+        }
+      }
+    },
+    "ジャンプ先を準備中... %lld / %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Preparing jump target... %lld / %lld"
+          }
+        }
+      }
+    },
+    "スキャン": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan"
+          }
+        }
+      }
+    },
+    "ストレージ不足": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not Enough Storage"
+          }
+        }
+      }
+    },
+    "ストレージ残量が不足しています（空き %lluMB / 推定 %lluMB 必要）。空き容量を確保してから再実行してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Not enough storage (%lluMB free, about %lluMB needed). Free up space and try again."
+          }
+        }
+      }
+    },
+    "タイトル": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Title"
+          }
+        }
+      }
+    },
+    "タイトルで検索": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Search by title"
+          }
+        }
+      }
+    },
+    "タイトル順": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Title"
+          }
+        }
+      }
+    },
+    "タップでキャンセル": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tap to cancel"
+          }
+        }
+      }
+    },
+    "ダウンロード中 (%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Downloading (%lld)"
+          }
+        }
+      }
+    },
+    "ダウンロード完了": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Download complete"
+          }
+        }
+      }
+    },
+    "バックグラウンドで実行": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Run in Background"
+          }
+        }
+      }
+    },
+    "バーコード(ISBN)を枠内に / 画面タップでピント合わせ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Put the barcode (ISBN) in the frame / tap to focus"
+          }
+        }
+      }
+    },
+    "バーコードをスキャン": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan Barcode"
+          }
+        }
+      }
+    },
+    "パスコード": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Passcode"
+          }
+        }
+      }
+    },
+    "パロディ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Parody"
+          }
+        }
+      }
+    },
+    "フォルダ登録失敗: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not add folder: %@"
+          }
+        }
+      }
+    },
+    "ブラウザの EH cookie をクリア": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clear EH Cookies in Browser"
+          }
+        }
+      }
+    },
+    "プリロードで滑らかに": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Smoother with preload"
+          }
+        }
+      }
+    },
+    "ヘルプ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Help"
+          }
+        }
+      }
+    },
+    "ページURLを取得できませんでした": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not get the page URL"
+          }
+        }
+      }
+    },
+    "ページの解析に失敗しました": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not parse the page"
+          }
+        }
+      }
+    },
+    "ページ詳細を見る (旧 .cortex 非対応)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "View Page Details (not supported for old .cortex)"
+          }
+        }
+      }
+    },
+    "リリースを開く": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Open Release"
+          }
+        }
+      }
+    },
+    "リーダーで開いた作品のタイトルを一覧でグレー表示します。OFF にしても既読の記録は消えません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Titles you opened in the reader are grayed out in lists. Turning this off keeps your read history."
+          }
+        }
+      }
+    },
+    "リーダーで開いた作品の既読記録を全て削除し、未読表示に戻します。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deletes the read record of every work you opened and marks them unread."
+          }
+        }
+      }
+    },
+    "ログインが必要です（ExHentaiにはigneousが必要です）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Login required (ExHentai needs igneous)"
+          }
+        }
+      }
+    },
+    "ロード中... %lld / %lld ページ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loading... %lld / %lld pages"
+          }
+        }
+      }
+    },
+    "・": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "・"
+          }
+        }
+      }
+    },
+    "一覧から削除": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove from List"
+          }
+        }
+      }
+    },
+    "一覧から削除 (NAS は残す)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Remove from List (keep on NAS)"
+          }
+        }
+      }
+    },
+    "中央=決定 / 左右=移動 / 外側=閉じる": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Center = select / Left, right = move / Outside = close"
+          }
+        }
+      }
+    },
+    "二度と確認しない": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Never Check Again"
+          }
+        }
+      }
+    },
+    "今後表示しない": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Don't Show Again"
+          }
+        }
+      }
+    },
+    "作家": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Artist"
+          }
+        }
+      }
+    },
+    "全 %lld 件": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld total"
+          }
+        }
+      }
+    },
+    "全消去": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clear All"
+          }
+        }
+      }
+    },
+    "前回の続きから読みますか？": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue where you left off?"
+          }
+        }
+      }
+    },
+    "動画 (アニメーション WebP) のコマ落ちは画質補正の処理負荷が原因です。設定で「無補正モード」を ON にすると、この端末でも滑らかに再生できます。静止画の閲覧・ダウンロードは通常どおり利用できます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dropped frames in video (animated WebP) come from the load of image enhancement. Turn on \"No Enhancement Mode\" in Settings to play smoothly on this device. Viewing and downloading still images works as usual."
+          }
+        }
+      }
+    },
+    "右上の + からバーコードをスキャン、または手動で追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scan a barcode with + at the top right, or add one by hand"
+          }
+        }
+      }
+    },
+    "同人誌は ISBN が無い事が多い → 下の認識タイトルをタップ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Doujinshi often have no ISBN. Tap a recognized title below"
+          }
+        }
+      }
+    },
+    "同期に失敗しました: %@（キャッシュを維持しています）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync failed: %@ (cache kept)"
+          }
+        }
+      }
+    },
+    "同期に失敗しました（キャッシュを維持しています）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sync failed (cache kept)"
+          }
+        }
+      }
+    },
+    "名前昇順": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name A to Z"
+          }
+        }
+      }
+    },
+    "名前降順": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Name Z to A"
+          }
+        }
+      }
+    },
+    "変更を反映するにはアプリを再起動してください (Cmd+Q → 再 open)。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Restart the app to apply the change (Cmd+Q, then reopen)."
+          }
+        }
+      }
+    },
+    "外部フォルダ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "External Folder"
+          }
+        }
+      }
+    },
+    "外部参照": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "External Library"
+          }
+        }
+      }
+    },
+    "外部参照 (%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "External Library (%lld)"
+          }
+        }
+      }
+    },
+    "後で": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Later"
+          }
+        }
+      }
+    },
+    "戻る": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Back"
+          }
+        }
+      }
+    },
+    "手動で追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add Manually"
+          }
+        }
+      }
+    },
+    "指定なし": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Any"
+          }
+        }
+      }
+    },
+    "新しいバージョン %@ があります。\n現在: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Version %@ is available.\nCurrent: %@"
+          }
+        }
+      }
+    },
+    "新しいバージョンがあります": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "A New Version Is Available"
+          }
+        }
+      }
+    },
+    "既読作品をグレー表示": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Gray Out Read Works"
+          }
+        }
+      }
+    },
+    "既読履歴を全消去": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Clear All Read History"
+          }
+        }
+      }
+    },
+    "既読記録 %lld 件を削除して全て未読表示に戻します。この操作は取り消せません。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "This deletes %lld read records and marks everything unread. This can't be undone."
+          }
+        }
+      }
+    },
+    "更新を確認": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Check for Updates"
+          }
+        }
+      }
+    },
+    "書籍情報が見つかりませんでした": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "No book info found"
+          }
+        }
+      }
+    },
+    "書籍情報を取得中…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Getting book info…"
+          }
+        }
+      }
+    },
+    "最低評価": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Minimum Rating"
+          }
+        }
+      }
+    },
+    "最初から見る": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Start Over"
+          }
+        }
+      }
+    },
+    "最新です (%@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "You're up to date (%@)"
+          }
+        }
+      }
+    },
+    "未完了 (%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Incomplete (%lld)"
+          }
+        }
+      }
+    },
+    "正式にダウンロード登録": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add to Downloads"
+          }
+        }
+      }
+    },
+    "演出をスキップ": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Skip Animation"
+          }
+        }
+      }
+    },
+    "無効なURL": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Invalid URL"
+          }
+        }
+      }
+    },
+    "画像デコード失敗": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image decoding failed"
+          }
+        }
+      }
+    },
+    "確認に失敗しました。通信状況を確認してください。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not check. Check your connection."
+          }
+        }
+      }
+    },
+    "約%lldh%lldm": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About %lldh %lldm"
+          }
+        }
+      }
+    },
+    "約%lld分%lld秒": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About %lldm %llds"
+          }
+        }
+      }
+    },
+    "約%lld秒": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "About %llds"
+          }
+        }
+      }
+    },
+    "絞り込み": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Filter"
+          }
+        }
+      }
+    },
+    "続きを見る": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        }
+      }
+    },
+    "繰り返し再生 (Boomerang)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loop Playback (Boomerang)"
+          }
+        }
+      }
+    },
+    "繰り返し再生 (Boomerang) はリーダー内の画質設定に移動しました。動画の NPU 補正はリーダーの「無補正モード」OFF で常時適用されます。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Loop Playback (Boomerang) moved to the reader's image quality settings. NPU enhancement for video is always on unless \"No Enhancement Mode\" is turned on in the reader."
+          }
+        }
+      }
+    },
+    "自動保存 (%lld)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Auto-saved (%lld)"
+          }
+        }
+      }
+    },
+    "表示する言語": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Languages to Show"
+          }
+        }
+      }
+    },
+    "設定 > Cort:EX > カメラ で許可してください": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Allow it in Settings > Cort:EX > Camera"
+          }
+        }
+      }
+    },
+    "認識したテキスト（タイトルをタップで追加）": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recognized text (tap a title to add)"
+          }
+        }
+      }
+    },
+    "読んだページが自動保存された作品です。ライブラリに残したい場合は長押しから「正式にダウンロード登録」": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Works whose read pages were saved automatically. To keep one in your library, long press and choose \"Add to Downloads\""
+          }
+        }
+      }
+    },
+    "転送中 %lld%%": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Transferring %lld%%"
+          }
+        }
+      }
+    },
+    "追加": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Add"
+          }
+        }
+      }
+    },
+    "追加日・古い順": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Added, Oldest First"
+          }
+        }
+      }
+    },
+    "追加日・新しい順": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Added, Newest First"
+          }
+        }
+      }
+    },
+    "追加日順": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Date Added"
+          }
+        }
+      }
+    },
+    "進む": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Forward"
+          }
+        }
+      }
+    },
+    "適用": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Apply"
+          }
+        }
+      }
+    },
+    "選択した言語のみ表示（未選択なら全言語）。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the selected languages are shown (all if none selected)."
+          }
+        }
+      }
+    },
+    "選択した言語のみ表示（未選択なら全言語）。E-H 仕様上「★2以上」が最小。": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Only the selected languages are shown (all if none selected). E-H allows \"★2 and up\" at minimum."
+          }
+        }
+      }
+    },
+    "選択失敗: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not select: %@"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

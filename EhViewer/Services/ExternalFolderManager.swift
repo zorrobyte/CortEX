@@ -343,7 +343,7 @@ final class ExternalFolderManager: ObservableObject {
         // のため baseDirectory は default Documents に fallback、loadAllMetadata は local 読込で
         // 即完了。NAS resolve 完了後に activeDLSaveDestinationURL がセットされ、その後の新規 DL は
         // NAS dest に向く。NAS 上の既存 .cortex は ExternalFolderManager.rescanAll 経由で別途読込。
-        dlSaveDestinationDisplayPath = "(NAS 解決中...)"
+        dlSaveDestinationDisplayPath = String(localized: "(NAS 解決中...)")
         Task.detached(priority: .userInitiated) { [data, weak self] in
             do {
                 let url = try SecurityScopedBookmark.resolve(data)
@@ -360,7 +360,7 @@ final class ExternalFolderManager: ObservableObject {
                         LogManager.shared.log("DLSaveDest", "loaded async: \(url.path)")
                     } else {
                         self.dlSaveDestinationStale = true
-                        self.dlSaveDestinationDisplayPath = "(NAS 未接続)"
+                        self.dlSaveDestinationDisplayPath = String(localized: "(NAS 未接続)")
                         LogManager.shared.log("DLSaveDest", "startAccessing failed, fallback to default")
                     }
                 }
@@ -375,7 +375,7 @@ final class ExternalFolderManager: ObservableObject {
             } catch {
                 await MainActor.run {
                     self?.dlSaveDestinationStale = true
-                    self?.dlSaveDestinationDisplayPath = "(bookmark 解決失敗)"
+                    self?.dlSaveDestinationDisplayPath = String(localized: "(bookmark 解決失敗)")
                     LogManager.shared.log("DLSaveDest", "resolve failed: \(error), fallback to default")
                 }
             }

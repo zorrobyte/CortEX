@@ -74,7 +74,7 @@ struct FavoritesView: View {
                                 viewModel.applyFilter()
                             } label: {
                                 HStack {
-                                    Text(sort.rawValue)
+                                    Text(LocalizedStringKey(sort.rawValue))
                                     if viewModel.sortOrder == sort {
                                         Image(systemName: "checkmark")
                                     }
@@ -316,7 +316,7 @@ struct FavoritesView: View {
                                 nhSortOrder = sort
                             } label: {
                                 HStack {
-                                    Text(sort.rawValue)
+                                    Text(LocalizedStringKey(sort.rawValue))
                                     if nhSortOrder == sort {
                                         Image(systemName: "checkmark")
                                     }
@@ -456,7 +456,7 @@ struct FavoritesView: View {
             // キャッシュを破壊せずに失敗表示だけする
             if ids.isEmpty && !cachedSnapshot.isEmpty {
                 LogManager.shared.log("nhFav", "sync returned 0 IDs but cache has \(cachedSnapshot.count) items - preserving cache")
-                nhErrorMessage = "同期に失敗しました（キャッシュを維持しています）"
+                nhErrorMessage = String(localized: "同期に失敗しました（キャッシュを維持しています）")
                 nhFavorites = cachedSnapshot
                 nhSyncedIds = []  // 失敗なのでチェックマーク全削除
                 isLoadingNh = false
@@ -498,7 +498,7 @@ struct FavoritesView: View {
             #endif
         } catch {
             // 例外時もキャッシュを破壊せず維持
-            nhErrorMessage = "同期に失敗しました: \(error.localizedDescription)（キャッシュを維持しています）"
+            nhErrorMessage = String(localized: "同期に失敗しました: \(error.localizedDescription)（キャッシュを維持しています）")
             nhFavorites = cachedSnapshot
             nhSyncedIds = []  // 失敗なのでチェックマーク全削除
             LogManager.shared.log("nhFav", "sync failed: \(error.localizedDescription) - preserving \(cachedSnapshot.count) cached items")

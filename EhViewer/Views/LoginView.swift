@@ -96,7 +96,7 @@ struct LoginView: View {
                     Button(role: .destructive) {
                         clearBrowserEhCookies()
                     } label: {
-                        Label(cookieClearStatus ?? "ブラウザの EH cookie をクリア", systemImage: "trash")
+                        Label(cookieClearStatus ?? String(localized: "ブラウザの EH cookie をクリア"), systemImage: "trash")
                             .frame(maxWidth: .infinity)
                             .font(.caption)
                     }
@@ -167,7 +167,7 @@ struct LoginView: View {
                 store.delete(c) { group.leave() }
             }
             group.notify(queue: .main) {
-                cookieClearStatus = "クリア完了 (\(targets.count)件)"
+                cookieClearStatus = String(localized: "クリア完了 (\(targets.count)件)")
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
                     cookieClearStatus = nil
                 }
@@ -283,7 +283,7 @@ struct LoginHelpView: View {
         }
     }
 
-    private func bulletItem(_ text: String) -> some View {
+    private func bulletItem(_ text: LocalizedStringKey) -> some View {
         HStack(alignment: .top, spacing: 6) {
             Text("•").font(.subheadline)
             Text(text).font(.caption)

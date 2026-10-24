@@ -100,8 +100,8 @@ struct NhentaiScrollList: View {
             // 田中要望 2026-07-03: 一覧の終端に件数フッターを表示
             if !viewModel.hasMore && !viewModel.galleries.isEmpty {
                 Text(viewModel.isSearchActive
-                     ? "\(viewModel.galleries.count) 件見つかりました"
-                     : "全 \(viewModel.galleries.count) 件")
+                     ? String(localized: "\(viewModel.galleries.count) 件見つかりました")
+                     : String(localized: "全 \(viewModel.galleries.count) 件"))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                     .padding(.vertical, 16)
@@ -190,8 +190,8 @@ struct NhentaiScrollList: View {
                 // 田中要望 2026-07-03: 一覧の終端に件数フッターを表示
                 if !viewModel.hasMore && !viewModel.galleries.isEmpty {
                     Text(viewModel.isSearchActive
-                         ? "\(viewModel.galleries.count) 件見つかりました"
-                         : "全 \(viewModel.galleries.count) 件")
+                         ? String(localized: "\(viewModel.galleries.count) 件見つかりました")
+                         : String(localized: "全 \(viewModel.galleries.count) 件"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .frame(maxWidth: .infinity)

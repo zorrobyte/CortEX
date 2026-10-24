@@ -66,7 +66,7 @@ nonisolated enum GalleryExporter {
 
         guard FileManager.default.fileExists(atPath: galleryDir.path) else {
             throw NSError(domain: "GalleryExporter", code: 1,
-                          userInfo: [NSLocalizedDescriptionKey: "ギャラリーフォルダが見つかりません (gid=\(gid))"])
+                          userInfo: [NSLocalizedDescriptionKey: String(localized: "ギャラリーフォルダが見つかりません (gid=\(gid))")])
         }
 
         // ディレクトリ再帰走査、相対パスを収集
@@ -75,7 +75,7 @@ nonisolated enum GalleryExporter {
             includingPropertiesForKeys: [.isRegularFileKey]
         ) else {
             throw NSError(domain: "GalleryExporter", code: 2,
-                          userInfo: [NSLocalizedDescriptionKey: "ギャラリーフォルダの列挙に失敗"])
+                          userInfo: [NSLocalizedDescriptionKey: String(localized: "ギャラリーフォルダの列挙に失敗")])
         }
 
         var fileURLs: [URL] = []
@@ -85,7 +85,7 @@ nonisolated enum GalleryExporter {
         }
         guard !fileURLs.isEmpty else {
             throw NSError(domain: "GalleryExporter", code: 3,
-                          userInfo: [NSLocalizedDescriptionKey: "ギャラリーにファイルがありません"])
+                          userInfo: [NSLocalizedDescriptionKey: String(localized: "ギャラリーにファイルがありません")])
         }
 
         // 出力先 .cortex

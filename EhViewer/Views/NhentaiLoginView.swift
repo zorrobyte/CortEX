@@ -304,7 +304,7 @@ struct NhentaiWebView: UIViewRepresentable {
             currentCDNIndex = 0
             DispatchQueue.main.async {
                 self.parent.cdnPhase = .verifying
-                self.parent.statusText = "CDNドメインを認証中..."
+                self.parent.statusText = String(localized: "CDNドメインを認証中...")
             }
             loadCurrentCDN(webView: webView)
         }
@@ -317,7 +317,7 @@ struct NhentaiWebView: UIViewRepresentable {
 
             let domain = cdnDomains[currentCDNIndex]
             DispatchQueue.main.async {
-                self.parent.statusText = "\(domain) を認証中..."
+                self.parent.statusText = String(localized: "\(domain) を認証中...")
             }
             LogManager.shared.log("nhAuth", "CDN verify: loading \(domain)")
 

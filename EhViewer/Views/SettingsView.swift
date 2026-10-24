@@ -71,16 +71,16 @@ struct SettingsView: View {
         isCheckingUpdate = true
         defer { isCheckingUpdate = false }
         guard let info = await UpdateChecker.fetchLatest() else {
-            updateResultMessage = "確認に失敗しました。通信状況を確認してください。"
+            updateResultMessage = String(localized: "確認に失敗しました。通信状況を確認してください。")
             updateResultURL = nil
             showUpdateResult = true
             return
         }
         if info.isNewer {
-            updateResultMessage = "新しいバージョン \(info.tag) があります。\n現在: \(AppVersion.releaseTag)"
+            updateResultMessage = String(localized: "新しいバージョン \(info.tag) があります。\n現在: \(AppVersion.releaseTag)")
             updateResultURL = info.url
         } else {
-            updateResultMessage = "最新です (\(AppVersion.releaseTag))"
+            updateResultMessage = String(localized: "最新です (\(AppVersion.releaseTag))")
             updateResultURL = nil
         }
         showUpdateResult = true
@@ -806,10 +806,10 @@ struct SettingsView: View {
                         showDLSaveDestRestart = true
                     }
                 } catch {
-                    externalFolderError = "フォルダ登録失敗: \(error)"
+                    externalFolderError = String(localized: "フォルダ登録失敗: \(error)")
                 }
             case .failure(let error):
-                externalFolderError = "選択失敗: \(error.localizedDescription)"
+                externalFolderError = String(localized: "選択失敗: \(error.localizedDescription)")
             }
         }
         .alert("外部フォルダ", isPresented: .constant(externalFolderError != nil)) {

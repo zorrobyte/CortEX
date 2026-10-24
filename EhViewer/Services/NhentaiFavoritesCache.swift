@@ -135,9 +135,9 @@ final class NhentaiFavoritesCache: ObservableObject, @unchecked Sendable {
     nonisolated var lastUpdatedText: String {
         guard let date = lastUpdated() else { return "未取得" }
         let diff = Date().timeIntervalSince(date)
-        if diff < 60 { return "たった今" }
-        if diff < 3600 { return "\(Int(diff / 60))分前" }
-        if diff < 86400 { return "\(Int(diff / 3600))時間前" }
-        return "\(Int(diff / 86400))日前"
+        if diff < 60 { return String(localized: "たった今") }
+        if diff < 3600 { return String(localized: "\(Int(diff / 60))分前") }
+        if diff < 86400 { return String(localized: "\(Int(diff / 3600))時間前") }
+        return String(localized: "\(Int(diff / 86400))日前")
     }
 }

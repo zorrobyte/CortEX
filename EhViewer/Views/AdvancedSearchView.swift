@@ -142,7 +142,7 @@ struct AdvancedSearchView: View {
                                     .onTapGesture { minRating = (minRating == i ? 0 : i) }
                             }
                             Spacer()
-                            Text(minRating >= 2 ? "★\(minRating) 以上のみ" : "指定なし")
+                            Text(minRating >= 2 ? String(localized: "★\(minRating) 以上のみ") : String(localized: "指定なし"))
                                 .font(.caption).foregroundStyle(.secondary)
                         }
                     } header: {

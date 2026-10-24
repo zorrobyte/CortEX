@@ -550,7 +550,7 @@ class DownloadManager: ObservableObject {
         guard !hasSufficientSSDSpaceForDownload(estimatedBytes: estimated) else { return true }
         let freeMB = ssdFreeBytes() / 1_048_576
         LogManager.shared.log("Download", "BLOCKED: insufficient SSD space gid=\(gid) estimated=\(estimated / 1_048_576)MB free=\(freeMB)MB")
-        storageAlertMessage = "ストレージ残量が不足しています（空き \(freeMB)MB / 推定 \(estimated / 1_048_576)MB 必要）。空き容量を確保してから再実行してください。"
+        storageAlertMessage = String(localized: "ストレージ残量が不足しています（空き \(freeMB)MB / 推定 \(estimated / 1_048_576)MB 必要）。空き容量を確保してから再実行してください。")
         return false
     }
 
@@ -2574,8 +2574,8 @@ class DownloadManager: ObservableObject {
     /// 完了通知
     private func sendDownloadCompleteNotification(title: String) {
         let content = UNMutableNotificationContent()
-        content.title = "ダウンロード完了"
-        content.body = "\(title) の保存が完了しました"
+        content.title = String(localized: "ダウンロード完了")
+        content.body = String(localized: "\(title) の保存が完了しました")
         content.sound = .default
 
         let request = UNNotificationRequest(

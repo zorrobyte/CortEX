@@ -109,16 +109,16 @@ struct ContentView: View {
             guard ext == "cortex" || ext == "zip" else { return }
             // 大容量 ZIP は数秒かかる → main thread ブロックで watchdog kill 回避のため
             // background thread へ逃がす。import 中は toast で進行中を示す
-            importToast = "インポート中..."
+            importToast = String(localized: "インポート中...")
             LogManager.shared.log("Export", "onOpenURL: start import url=\(url.lastPathComponent)")
             Task.detached(priority: .userInitiated) {
                 let result = GalleryExporter.importFromZip(url: url)
                 await MainActor.run {
                     if result != nil {
-                        importToast = "インポート完了"
+                        importToast = String(localized: "インポート完了")
                         withAnimation { selectedTab = 3 }
                     } else {
-                        importToast = "インポート失敗"
+                        importToast = String(localized: "インポート失敗")
                     }
                     DispatchQueue.main.asyncAfter(deadline: .now() + 2) { importToast = nil }
                 }
@@ -551,7 +551,7 @@ struct ContentView: View {
         switch context.biometryType {
         case .faceID: return "Face ID"
         case .touchID: return "Touch ID"
-        default: return "パスコード"
+        default: return String(localized: "パスコード")
         }
     }
 

@@ -219,7 +219,42 @@ struct LocalReaderView: View {
     /// 動画 WebP migration / override 解決後の有効モード。未解決なら一瞬黒画面。
     private var effectiveDirection: Int { resolvedDirection ?? readerDirection }
 
+    // iPhone Duo: 上部操作はシステム toolbar に載せ、縦バー (右側) に配置させる。
+    // 手作りバーは縦配置の対象外になるため (iphone-duo-vertical-bars)。
     var body: some View {
+        NavigationStack {
+            readerBody
+                .navigationTitle(meta.title)
+                #if os(iOS)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                .toolbar(showControls && zoomImage == nil ? .visible : .hidden, for: .navigationBar)
+                #endif
+                .toolbar { readerToolbar }
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var readerToolbar: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button {
+                LogManager.shared.log("Tap", "local dismiss: close-button")
+                dismiss()
+            } label: { Label("閉じる", systemImage: "xmark") }
+        }
+        ToolbarItemGroup(placement: .primaryAction) {
+            if !EcoMode.shared.isEnabled {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) { showFilterPanel.toggle() }
+                } label: {
+                    Label("画質設定", systemImage: "slider.horizontal.3")
+                }
+                .tint(showFilterPanel ? .yellow : nil)
+            }
+        }
+    }
+
+    private var readerBody: some View {
         ZStack {
             Color.black.ignoresSafeArea()
 
@@ -339,7 +374,6 @@ struct LocalReaderView: View {
         .statusBarHidden(!showControls || zoomImage != nil)
         .toolbar(showControls && zoomImage == nil ? .visible : .hidden, for: .tabBar)
         .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
         #endif
         .onReceive(NotificationCenter.default.publisher(for: .externalCortexImageReady)) { notif in
             // β-1 (2026-04-26): 外部参照 ZIP background materialize 完了で body 再描画 trigger。
@@ -1071,44 +1105,6 @@ struct LocalReaderView: View {
 
     private var controlsOverlay: some View {
         VStack {
-            HStack {
-                Button {
-                    LogManager.shared.log("Tap", "local dismiss: close-button")
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.title2)
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(.white)
-                }
-                .buttonStyle(.plain)
-
-                Spacer()
-
-                Text(meta.title)
-                    .font(.caption)
-                    .foregroundStyle(.white)
-                    .lineLimit(1)
-
-                Spacer()
-
-                if !EcoMode.shared.isEnabled {
-                    Button {
-                        withAnimation(.easeInOut(duration: 0.2)) {
-                            showFilterPanel.toggle()
-                        }
-                    } label: {
-                        Image(systemName: "slider.horizontal.3")
-                            .font(.title2)
-                            .symbolRenderingMode(.hierarchical)
-                            .foregroundStyle(showFilterPanel ? .yellow : .white)
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-            .padding()
-            .background(.ultraThinMaterial.opacity(0.8))
-
             Spacer()
 
             VStack(spacing: 6) {

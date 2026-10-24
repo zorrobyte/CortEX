@@ -428,7 +428,7 @@ extension ReaderViewModel {
 
             guard let (image, display) = decoded else {
                 LogManager.shared.log("Reader", "loadSingle \(index) exit: image decode failed")
-                holder(for: index).setFailed("画像デコード失敗")
+                holder(for: index).setFailed(String(localized: "画像デコード失敗"))
                 return true
             }
 
@@ -700,7 +700,7 @@ extension ReaderViewModel {
                 requestLoad(center + 1)
                 requestLoad(center - 1)
             } else if errorMessage == nil {
-                errorMessage = "ページURLを取得できませんでした"
+                errorMessage = String(localized: "ページURLを取得できませんでした")
             }
         } catch {
             errorMessage = error.localizedDescription

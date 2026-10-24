@@ -242,7 +242,7 @@ struct EhExHentaiLoginView: View {
                 authVM.igneous = igneous
             }
             phase = .done
-            statusText = "認証情報フィールドに自動入力しました。\n値を確認して「ログイン」を押してください"
+            statusText = String(localized: "認証情報フィールドに自動入力しました。\n値を確認して「ログイン」を押してください")
             LogManager.shared.log("EhAuth", "cookies captured via WebView: member=\(memberID.prefix(4))*** hasPass=\(!passHash.isEmpty) hasIgneous=\(!(igneous?.isEmpty ?? true))")
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
@@ -404,7 +404,7 @@ struct EhExHentaiWebView: UIViewRepresentable {
                 if lower.contains("sad panda") || combined.isEmpty || lower.contains("forbidden") {
                     Task { @MainActor in
                         self.parent.phase = .sadPanda
-                        self.parent.statusText = "EXhentai アクセス権限がありません。\nE-Hentai アカウントが ExHentai 対応か確認してください"
+                        self.parent.statusText = String(localized: "EXhentai アクセス権限がありません。\nE-Hentai アカウントが ExHentai 対応か確認してください")
                     }
                     LogManager.shared.log("EhAuth", "sad panda detected: \(combined.prefix(80))")
                     return
@@ -469,7 +469,7 @@ struct EhExHentaiWebView: UIViewRepresentable {
                     self.igneousRetryCount += 1
                     LogManager.shared.log("EhAuth", "igneous 未発行 → exhentai.org 再ロード (retry \(self.igneousRetryCount)/\(self.igneousMaxRetries))")
                     Task { @MainActor in
-                        self.parent.statusText = "igneous 再取得中... (\(self.igneousRetryCount)/\(self.igneousMaxRetries))"
+                        self.parent.statusText = String(localized: "igneous 再取得中... (\(self.igneousRetryCount)/\(self.igneousMaxRetries))")
                         webView.load(URLRequest(url: URL(string: "https://exhentai.org/")!))
                     }
                 }
@@ -483,7 +483,7 @@ struct EhExHentaiWebView: UIViewRepresentable {
             igneousRetryCount = 0
             hasCapturedAll = false
             parent.phase = .bouncing
-            parent.statusText = "exhentai.org に再アクセス中 (igneous 発行)"
+            parent.statusText = String(localized: "exhentai.org に再アクセス中 (igneous 発行)")
             parent.holder.webView?.load(URLRequest(url: URL(string: "https://exhentai.org/")!))
         }
 

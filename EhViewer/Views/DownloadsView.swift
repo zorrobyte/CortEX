@@ -476,11 +476,11 @@ struct DownloadsView: View {
             ) { result in
                 if case .success(let urls) = result, let url = urls.first {
                     // 大容量 ZIP の main thread ブロック回避のため background 実行
-                    importMessage = "インポート中..."
+                    importMessage = String(localized: "インポート中...")
                     Task.detached(priority: .userInitiated) {
                         let ok = GalleryExporter.importFromZip(url: url) != nil
                         await MainActor.run {
-                            importMessage = ok ? "インポート完了" : "インポート失敗"
+                            importMessage = ok ? String(localized: "インポート完了") : String(localized: "インポート失敗")
                         }
                     }
                 }
@@ -1497,14 +1497,14 @@ struct DownloadsView: View {
         if seconds >= 3600 {
             let h = seconds / 3600
             let m = (seconds % 3600) / 60
-            return "約\(h)h\(m)m"
+            return String(localized: "約\(h)h\(m)m")
         }
         if seconds >= 60 {
             let m = seconds / 60
             let s = seconds % 60
-            return "約\(m)分\(s)秒"
+            return String(localized: "約\(m)分\(s)秒")
         }
-        return "約\(seconds)秒"
+        return String(localized: "約\(seconds)秒")
     }
 
     // MARK: - カバーサムネイル

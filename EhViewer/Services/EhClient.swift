@@ -752,15 +752,15 @@ enum EhError: LocalizedError, Sendable, Equatable {
 
     nonisolated var errorDescription: String? {
         switch self {
-        case .invalidURL: return "無効なURL"
-        case .notLoggedIn: return "ログインが必要です（ExHentaiにはigneousが必要です）"
+        case .invalidURL: return String(localized: "無効なURL")
+        case .notLoggedIn: return String(localized: "ログインが必要です（ExHentaiにはigneousが必要です）")
         case .banned(let remaining):
             if let remaining {
-                return "アクセスが制限されています（残り \(remaining)）"
+                return String(localized: "アクセスが制限されています（残り \(remaining)）")
             }
-            return "アクセスが制限されています"
-        case .parseFailed: return "ページの解析に失敗しました"
-        case .galleryRemoved: return "ギャラリーが削除されています"
+            return String(localized: "アクセスが制限されています")
+        case .parseFailed: return String(localized: "ページの解析に失敗しました")
+        case .galleryRemoved: return String(localized: "ギャラリーが削除されています")
         }
     }
 }

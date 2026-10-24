@@ -84,7 +84,80 @@ struct NhentaiReaderView: View {
         isSliding = false
     }
 
+    // iPhone Duo: 上部操作はシステム toolbar に載せ、縦バー (右側) に配置させる。
+    // 手作りバーは縦配置の対象外になるため (iphone-duo-vertical-bars)。
     var body: some View {
+        NavigationStack {
+            readerBody
+                .navigationTitle(gallery.displayTitle)
+                #if os(iOS)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbarColorScheme(.dark, for: .navigationBar)
+                .toolbar(showControls ? .visible : .hidden, for: .navigationBar)
+                #endif
+                .toolbar { readerToolbar }
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var readerToolbar: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button { handleClose() } label: { Label("閉じる", systemImage: "xmark") }
+        }
+        ToolbarItemGroup(placement: .primaryAction) {
+            if NhentaiCookieManager.isLoggedIn() {
+                Button { toggleNhFavorite() } label: {
+                    Label("お気に入り", systemImage: isFavorited ? "heart.fill" : "heart")
+                }
+                .tint(isFavorited ? .red : nil)
+            }
+            Button {
+                if translationMode {
+                    // OFF時にキャッシュクリア（誤翻訳リセット）
+                    TranslationService.shared.clearCache()
+                }
+                translationMode.toggle()
+            } label: {
+                Label("翻訳", systemImage: "character.book.closed")
+            }
+            .tint(translationMode ? .blue : nil)
+            Button {
+                withAnimation(.easeInOut(duration: 0.2)) { showFilterPanel.toggle() }
+            } label: {
+                Label("画質設定", systemImage: "slider.horizontal.3")
+            }
+            .tint(showFilterPanel ? .yellow : nil)
+        }
+    }
+
+    /// ファボ追加: ローカル即時 + 裏サーバー試行 → 失敗時 Safari / ファボ削除: CF 鉄壁 → ローカル即時削除 + Safari 誘導
+    private func toggleNhFavorite() {
+                let gid = gallery.id
+                if isFavorited {
+                    isFavorited = false
+                    NhentaiFavoritesCache.shared.removeFromCache(id: gid)
+                    #if canImport(UIKit)
+                    if let url = URL(string: "https://nhentai.net/g/\(gid)/") {
+                        UIApplication.shared.open(url)
+                    }
+                    #endif
+                } else {
+                    isFavorited = true
+                    NhentaiFavoritesCache.shared.addToCache(gallery)
+                    Task {
+                        let result = (try? await NhentaiClient.toggleFavorite(galleryId: gid)) ?? false
+                        if !result {
+                            await MainActor.run {
+                                favFailedGalleryId = gid
+                                showFavFailedAlert = true
+                            }
+                        }
+                    }
+                }
+    }
+
+
+    private var readerBody: some View {
         ZStack {
             Color.black.ignoresSafeArea()
 
@@ -180,7 +253,6 @@ struct NhentaiReaderView: View {
         .statusBarHidden(!showControls)
         .toolbar(.hidden, for: .tabBar)
         .navigationBarBackButtonHidden(true)
-        .toolbar(.hidden, for: .navigationBar)
         #endif
         // DL中の閉じる確認
         .alert("ダウンロード中", isPresented: $showClosePrompt) {
@@ -951,89 +1023,6 @@ struct NhentaiReaderView: View {
 
     private var controlsOverlay: some View {
         VStack {
-            HStack {
-                Button { handleClose() } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .font(.title2)
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(.white)
-                }
-                .buttonStyle(.plain)
-
-                Spacer()
-
-                Text(gallery.displayTitle)
-                    .font(.caption)
-                    .foregroundStyle(.white)
-                    .lineLimit(1)
-
-                Spacer()
-
-                // お気に入りボタン
-                // ファボ追加: ローカル即時 + 裏サーバー試行 → 失敗時 Safari
-                // ファボ削除: CF 鉄壁 → ローカル即時削除 + Safari 誘導
-                if NhentaiCookieManager.isLoggedIn() {
-                    Button {
-                        let gid = gallery.id
-                        if isFavorited {
-                            isFavorited = false
-                            NhentaiFavoritesCache.shared.removeFromCache(id: gid)
-                            #if canImport(UIKit)
-                            if let url = URL(string: "https://nhentai.net/g/\(gid)/") {
-                                UIApplication.shared.open(url)
-                            }
-                            #endif
-                        } else {
-                            isFavorited = true
-                            NhentaiFavoritesCache.shared.addToCache(gallery)
-                            Task {
-                                let result = (try? await NhentaiClient.toggleFavorite(galleryId: gid)) ?? false
-                                if !result {
-                                    await MainActor.run {
-                                        favFailedGalleryId = gid
-                                        showFavFailedAlert = true
-                                    }
-                                }
-                            }
-                        }
-                    } label: {
-                        Image(systemName: isFavorited ? "heart.fill" : "heart")
-                            .font(.title2)
-                            .foregroundStyle(isFavorited ? .red : .white)
-                    }
-                    .buttonStyle(.plain)
-                }
-
-                // 翻訳ボタン
-                Button {
-                    if translationMode {
-                        TranslationService.shared.clearCache()
-                    }
-                    translationMode.toggle()
-                } label: {
-                    Image(systemName: "character.book.closed")
-                        .font(.title2)
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(translationMode ? .blue : .white)
-                }
-                .buttonStyle(.plain)
-
-                // 画質設定ボタン
-                Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        showFilterPanel.toggle()
-                    }
-                } label: {
-                    Image(systemName: "slider.horizontal.3")
-                        .font(.title2)
-                        .symbolRenderingMode(.hierarchical)
-                        .foregroundStyle(showFilterPanel ? .yellow : .white)
-                }
-                .buttonStyle(.plain)
-            }
-            .padding()
-            .background(.ultraThinMaterial.opacity(0.8))
-
             Spacer()
 
             VStack(spacing: 6) {

@@ -4,7 +4,7 @@ import SwiftUI
 struct CategoryFilter: Hashable {
     let category: GalleryCategory
     var query: String { "language:japanese" }
-    var displayTitle: String { "\(category.rawValue) (日本語)" }
+    var displayTitle: String { String(localized: "\(category.rawValue) (日本語)") }
 }
 
 /// 投稿者の作品一覧検索用
