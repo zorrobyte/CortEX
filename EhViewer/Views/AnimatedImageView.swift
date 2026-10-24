@@ -593,7 +593,7 @@ final class AnimatedSourceImageView: UIImageView {
         let w = bounds.width
         let h = bounds.height
         let d = max(w, h)
-        let boundsBased: CGFloat = d > 0 ? d : max(UIScreen.main.bounds.width, UIScreen.main.bounds.height)
+        let boundsBased: CGFloat = d > 0 ? d : max(DeviceCapability.windowBounds.width, DeviceCapability.windowBounds.height)
         #if targetEnvironment(macCatalyst)
         return boundsBased
         #else
@@ -1115,7 +1115,7 @@ struct BoomerangWebPView: View {
     /// setSource 時の computeMaxPixelSize と同じ基準 (screen bounds + canvas 別 cap) で
     /// preload も decode するため、cache hit の一致率を最大化。
     private func preloadMaxDim(for source: AnimatedImageSource) -> CGFloat {
-        let screen = UIScreen.main.bounds
+        let screen = DeviceCapability.windowBounds
         let boundsBased = max(screen.width, screen.height)
         #if targetEnvironment(macCatalyst)
         return boundsBased

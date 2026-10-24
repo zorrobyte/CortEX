@@ -473,7 +473,7 @@ class ReaderViewModel: ObservableObject {
 
     static var displayWidth: CGFloat {
         #if os(iOS)
-        UIScreen.main.bounds.width * UIScreen.main.scale
+        DeviceCapability.windowBounds.width * (DeviceCapability.keyWindow?.traitCollection.displayScale ?? 3)
         #else
         1200
         #endif

@@ -47,7 +47,7 @@ struct ZoomablePageViewer: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .contentShape(Rectangle())
                     .onTapGesture { location in
-                        let width = UIScreen.main.bounds.width
+                        let width = DeviceCapability.windowBounds.width
                         if location.x < width * 0.33 {
                             handleTap(.left)
                         } else if location.x > width * 0.67 {

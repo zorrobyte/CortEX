@@ -36,7 +36,7 @@ struct WallpaperView: View {
 
     private var portraitSize: CGSize {
         #if os(iOS)
-        let bounds = UIScreen.main.bounds
+        let bounds = DeviceCapability.windowBounds
         let w = min(bounds.width, bounds.height)
         let h = max(bounds.width, bounds.height)
         return CGSize(width: w, height: h)

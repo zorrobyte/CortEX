@@ -46,7 +46,7 @@ struct PageCellView: View {
 
     private static var screenSize: CGSize {
         #if os(iOS)
-        UIScreen.main.bounds.size
+        DeviceCapability.windowBounds.size
         #else
         CGSize(width: 1200, height: 800)
         #endif
@@ -287,7 +287,7 @@ struct PageCellView: View {
     private var placeholderMinHeight: CGFloat {
         #if os(iOS) && !targetEnvironment(macCatalyst)
         if !isHorizontalMode, let aspect = estimatedAspect {
-            return UIScreen.main.bounds.width * aspect
+            return DeviceCapability.windowBounds.width * aspect
         }
         #endif
         return 300

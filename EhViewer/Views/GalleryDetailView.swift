@@ -992,7 +992,6 @@ struct GalleryDetailView: View {
                 }
                 running += 1
                 group.addTask {
-                    defer { SpriteCache.shared.fetchingSprites.remove(url) }
                     do {
                         let data = try await EhClient.shared.fetchImageData(url: url, host: self.host)
                         // 専用キューでデコード（協調プール完全不使用 → UIスレッド影響ゼロ）
@@ -1009,6 +1008,7 @@ struct GalleryDetailView: View {
                     } catch {
                         // silent fail
                     }
+                    _ = await MainActor.run { SpriteCache.shared.fetchingSprites.remove(url) }
                 }
             }
         }

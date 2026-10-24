@@ -22,6 +22,14 @@ enum GalleryGridColumns {
         Array(repeating: GridItem(.flexible(), spacing: 10), count: 3)
     }
 
+    /// iPhone Duo 内側ディスプレイ等、iPhone でも幅 regular なら iPad と同じ 4 列。
+    static func columns(horizontalSizeClass: UserInterfaceSizeClass?) -> [GridItem] {
+        if UIDevice.current.userInterfaceIdiom == .phone && horizontalSizeClass != .regular {
+            return iPhoneColumns()
+        }
+        return iPadColumns(horizontalSizeClass: horizontalSizeClass)
+    }
+
     /// Mac Catalyst: ウィンドウ幅に応じて自動で列数調整 (最小 180pt)。
     /// .adaptive で SwiftUI がリサイズ追従、ユーザーの好みのウィンドウサイズで列数が変化。
     static func macColumns() -> [GridItem] {

@@ -378,7 +378,7 @@ struct ContentView: View {
     private var lockBackground: some View {
         let _ = lockDisplayLink.tick
         #if os(iOS)
-        let screenH = UIScreen.main.bounds.height + 60
+        let screenH = DeviceCapability.windowBounds.height + 60
         #else
         let screenH: CGFloat = 900
         #endif
@@ -410,8 +410,8 @@ struct ContentView: View {
         guard !images.isEmpty else { return }
 
         #if os(iOS)
-        let w = UIScreen.main.bounds.width
-        let h = UIScreen.main.bounds.height
+        let w = DeviceCapability.windowBounds.width
+        let h = DeviceCapability.windowBounds.height
         #else
         let w: CGFloat = 400; let h: CGFloat = 900
         #endif

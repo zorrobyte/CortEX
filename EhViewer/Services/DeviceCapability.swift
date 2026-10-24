@@ -78,3 +78,54 @@ extension View {
     }
 }
 #endif
+
+#if canImport(UIKit)
+// MARK: - ウィンドウ基準のレイアウト判定 (iPhone Duo 対応)
+//
+// iPhone Duo の内側ディスプレイはパネル 669x951 に対しウィンドウが 951x669 になるなど、
+// UIScreen.main / userInterfaceIdiom ではレイアウトを判断できない (idiom は開いても .phone)。
+// サイズはウィンドウ、判定は size class で行う。
+extension DeviceCapability {
+    @MainActor static var keyWindow: UIWindow? {
+        let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        let scene = scenes.first { $0.activationState == .foregroundActive } ?? scenes.first
+        return scene?.keyWindow ?? scene?.windows.first
+    }
+
+    /// 現在のウィンドウサイズ (UIScreen.main.bounds の代替)。
+    @MainActor static var windowBounds: CGRect {
+        keyWindow?.bounds ?? UIScreen.main.bounds
+    }
+
+    /// iPad 全画面 / iPhone Duo 内側ディスプレイ = regular/regular。iPad 向けレイアウトの判定に使う。
+    @MainActor static var isRegularRegular: Bool {
+        guard let traits = keyWindow?.traitCollection else {
+            return UIDevice.current.userInterfaceIdiom == .pad
+        }
+        return traits.horizontalSizeClass == .regular && traits.verticalSizeClass == .regular
+    }
+}
+#endif
+
+#if canImport(UIKit)
+/// iPhone Duo 半開き時、縦の折り目 (division) をまたぐ操作 UI を後ろ側 (trailing) の領域へ寄せる。
+/// 背景は呼び出し側で外側に付けて全幅のまま残す。全開/閉じた状態では何もしない。
+struct FoldDisplacement: ViewModifier {
+    @State private var leadingInset: CGFloat = 0
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.leading, leadingInset)
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.reservedRegions(kind: .division)
+                    .filter { $0.isActive && $0.frame.minX > 0 && $0.frame.maxX < proxy.size.width }
+                    .map(\.frame.maxX)
+                    .max() ?? 0
+            } action: { leadingInset = $0 }
+    }
+}
+
+extension View {
+    func foldDisplaced() -> some View { modifier(FoldDisplacement()) }
+}
+#endif

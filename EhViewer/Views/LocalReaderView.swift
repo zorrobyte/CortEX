@@ -251,7 +251,7 @@ struct LocalReaderView: View {
                     if isHorizontal && readingOrder == 1 {
                         TipView(RTLSliderTip(), arrowEdge: .bottom)
                     }
-                    if UIDevice.current.userInterfaceIdiom == .pad && isHorizontal {
+                    if DeviceCapability.isRegularRegular && isHorizontal {
                         TipView(SpreadModeTip(), arrowEdge: .bottom)
                     }
                 }
@@ -623,7 +623,7 @@ struct LocalReaderView: View {
                         return
                     }
                 }
-                let screenMid = UIScreen.main.bounds.height / 2
+                let screenMid = DeviceCapability.windowBounds.height / 2
                 if let closest = positions.min(by: { abs($0.value - screenMid) < abs($1.value - screenMid) }) {
                     LogManager.shared.log("iPadScroll", "closest to center=\(Int(screenMid)): index=\(closest.key) midY=\(Int(closest.value))")
                     if currentIndex != closest.key {
@@ -1179,6 +1179,7 @@ struct LocalReaderView: View {
                 .padding(.horizontal)
             }
             .padding(.bottom, 8)
+            .foldDisplaced()
             .background(.ultraThinMaterial.opacity(0.8))
         }
     }

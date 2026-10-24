@@ -78,13 +78,10 @@ struct PagedReaderView: UIViewControllerRepresentable {
 
     // MARK: - 見開き判定
 
-    /// iPad横画面で見開きモードかどうか
+    /// iPad / iPhone Duo 内側ディスプレイの横長ウィンドウで見開きモードかどうか
     static var isSpreadMode: Bool {
-        guard UIDevice.current.userInterfaceIdiom == .pad else { return false }
-        let scene = UIApplication.shared.connectedScenes
-            .compactMap { $0 as? UIWindowScene }
-            .first
-        guard let size = scene?.windows.first?.bounds.size else { return false }
+        guard DeviceCapability.isRegularRegular else { return false }
+        let size = DeviceCapability.windowBounds.size
         return size.width > size.height
     }
 

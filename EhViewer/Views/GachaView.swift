@@ -262,7 +262,7 @@ struct GachaView: View {
     private var mosaicLayer: some View {
         let _ = displayLink.tick
         #if os(iOS)
-        let bounds = UIScreen.main.bounds
+        let bounds = DeviceCapability.windowBounds
         #else
         let bounds = CGRect(origin: .zero, size: screenSize)
         #endif
@@ -529,7 +529,7 @@ struct GachaView: View {
     private func generateTiles(images: [PlatformImage]) {
         tiles.removeAll()
         #if os(iOS)
-        let bounds = UIScreen.main.bounds
+        let bounds = DeviceCapability.windowBounds
         let w = bounds.width
         let h = bounds.height
         #else

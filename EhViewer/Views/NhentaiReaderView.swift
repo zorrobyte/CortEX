@@ -108,7 +108,7 @@ struct NhentaiReaderView: View {
                     if effectiveDirection == 1 && readingOrder == 1 {
                         TipView(RTLSliderTip(), arrowEdge: .bottom)
                     }
-                    if UIDevice.current.userInterfaceIdiom == .pad && effectiveDirection == 1 {
+                    if DeviceCapability.isRegularRegular && effectiveDirection == 1 {
                         TipView(SpreadModeTip(), arrowEdge: .bottom)
                     }
                 }
@@ -1082,6 +1082,7 @@ struct NhentaiReaderView: View {
                 .padding(.horizontal)
             }
             .padding(.bottom, 8)
+            .foldDisplaced()
             .background(.ultraThinMaterial.opacity(0.8))
         }
     }

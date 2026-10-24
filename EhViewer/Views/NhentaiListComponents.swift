@@ -39,10 +39,7 @@ struct NhentaiScrollList: View {
         #if targetEnvironment(macCatalyst)
         return GalleryGridColumns.macColumns()
         #elseif canImport(UIKit)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return GalleryGridColumns.iPhoneColumns()
-        }
-        return GalleryGridColumns.iPadColumns(horizontalSizeClass: hSizeClass)
+        return GalleryGridColumns.columns(horizontalSizeClass: hSizeClass)
         #else
         return []
         #endif

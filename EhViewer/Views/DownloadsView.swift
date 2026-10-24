@@ -16,6 +16,7 @@ private struct ReaderLaunch: Identifiable {
 }
 
 struct DownloadsView: View {
+    @Environment(\.horizontalSizeClass) private var hSizeClass
     @ObservedObject private var manager = DownloadManager.shared
     /// Phase E1 (2026-04-26): 外部参照フォルダ配下の作品リスト (Mac Catalyst のみ表示)。
     @ObservedObject private var externalFolders = ExternalFolderManager.shared
@@ -1065,10 +1066,7 @@ struct DownloadsView: View {
         #if targetEnvironment(macCatalyst)
         return GalleryGridColumns.macColumns()
         #elseif canImport(UIKit)
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            return GalleryGridColumns.iPhoneColumns()
-        }
-        return GalleryGridColumns.iPadColumns(horizontalSizeClass: nil)
+        return GalleryGridColumns.columns(horizontalSizeClass: hSizeClass)
         #else
         return [GridItem(.adaptive(minimum: 160), spacing: 8)]
         #endif
