@@ -19,7 +19,8 @@ nonisolated enum NhentaiClient {
         let tags: [NhTag]?
         let thumbnailPath: String?  // v2 search: サムネパス
 
-        var displayTitle: String { title.japanese ?? title.english ?? title.pretty ?? "\(id)" }
+        // 個人用フォーク: 英題を優先 (空文字は無いものとして扱う)
+        var displayTitle: String { [title.english, title.japanese, title.pretty].compactMap { $0 }.first { !$0.isEmpty } ?? "\(id)" }
         var englishTitle: String { title.english ?? title.pretty ?? "\(id)" }
 
         // v1 + v2 両対応デコーダー

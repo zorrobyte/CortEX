@@ -130,14 +130,12 @@ struct NhentaiDetailView: View {
 
             VStack(alignment: .leading, spacing: 6) {
                 // タイトル
-                if let jp = gallery.title.japanese {
+                Text(gallery.displayTitle)
+                    .font(.subheadline.bold())
+                    .lineLimit(3)
+                    .textSelection(.enabled)
+                if let jp = gallery.title.japanese, !jp.isEmpty, jp != gallery.displayTitle {
                     Text(jp)
-                        .font(.subheadline.bold())
-                        .lineLimit(3)
-                        .textSelection(.enabled)
-                }
-                if let en = gallery.title.english, en != gallery.title.japanese {
-                    Text(en)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                         .textSelection(.enabled)
